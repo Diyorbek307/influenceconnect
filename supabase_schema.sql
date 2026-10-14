@@ -5,8 +5,11 @@
 -- ============================================================================
 
 -- ---------- PROFILES ----------
+-- id совпадает с auth.users.id для реальных пользователей (заполняет триггер),
+-- но FK намеренно не ставим, чтобы можно было засеять демо-блогеров
+-- (витринные профили без аккаунта) через supabase_seed.sql.
 create table if not exists public.profiles (
-  id           uuid primary key references auth.users(id) on delete cascade,
+  id           uuid primary key default gen_random_uuid(),
   email        text,
   role         text not null default '',          -- 'brand' | 'blogger' | 'admin' | ''
   name         text not null default '',

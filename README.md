@@ -46,12 +46,16 @@ lib/
   utils/                    — вспомогательные расширения
 ```
 
-**Данные.** Сейчас приложение работает на локальном бэкенде
-(`AppRepository` + `SharedPreferences`) — запускается сразу, без сервера,
-с демо-наполнением. Вся логика изолирована в одном классе-репозитории, поэтому
-переход на реальную общую БД (**Supabase**) сводится к замене реализации методов.
-Готовая SQL-схема лежит в [`supabase_schema.sql`](supabase_schema.sql),
-пошаговая инструкция — в [`DEPLOY.md`](DEPLOY.md).
+**Данные.** Слой данных абстрагирован интерфейсом `DataSource` с двумя
+реализациями:
+- `LocalDataSource` — демо-режим (`SharedPreferences`), работает сразу без сервера;
+- `SupabaseDataSource` — общая облачная БД (Supabase).
+
+Приложение **само выбирает** источник: если заданы `SUPABASE_URL` и
+`SUPABASE_ANON_KEY` (через `--dart-define`) — используется Supabase, иначе —
+локальный демо-режим. `AppRepository` держит кэш и всю логику выборок.
+SQL-схема — [`supabase_schema.sql`](supabase_schema.sql), наполнение —
+[`supabase_seed.sql`](supabase_seed.sql), инструкция — [`DEPLOY.md`](DEPLOY.md).
 
 ## Запуск локально
 
