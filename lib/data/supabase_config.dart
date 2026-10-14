@@ -9,14 +9,16 @@
 class SupabaseConfig {
   SupabaseConfig._();
 
+  // Значения можно переопределить через --dart-define при сборке,
+  // иначе используются рабочие ключи проекта (публичный ключ безопасен).
   static const String url = String.fromEnvironment(
     'SUPABASE_URL',
-    defaultValue: '',
+    defaultValue: 'https://uauegllvjsvctwfziukb.supabase.co',
   );
 
   static const String anonKey = String.fromEnvironment(
     'SUPABASE_ANON_KEY',
-    defaultValue: '',
+    defaultValue: 'sb_publishable_RJQuIUhnsdDa2fnRus9WDg_HyeAlRbO',
   );
 
   /// Включён ли облачный бэкенд.

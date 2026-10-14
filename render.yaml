@@ -6,8 +6,8 @@ services:
   - type: web
     name: influenceconnect
     runtime: static
-    # SUPABASE_URL и SUPABASE_ANON_KEY задаются в Render → Environment.
-    # Если они пустые — приложение соберётся в локальном (демо) режиме.
+    # Ключи Supabase зашиты в lib/data/supabase_config.dart (публичный ключ).
+    # При желании их можно переопределить через --dart-define.
     buildCommand: |
       if [ ! -d "$HOME/flutter" ]; then
         git clone https://github.com/flutter/flutter.git -b stable --depth 1 "$HOME/flutter"
@@ -15,15 +15,8 @@ services:
       export PATH="$HOME/flutter/bin:$PATH"
       flutter --version
       flutter pub get
-      flutter build web --release \
-        --dart-define=SUPABASE_URL="${SUPABASE_URL:-}" \
-        --dart-define=SUPABASE_ANON_KEY="${SUPABASE_ANON_KEY:-}"
+      flutter build web --release
     staticPublishPath: build/web
-    envVars:
-      - key: SUPABASE_URL
-        sync: false
-      - key: SUPABASE_ANON_KEY
-        sync: false
     # SPA-роутинг: любые пути отдаём на index.html
     routes:
       - type: rewrite

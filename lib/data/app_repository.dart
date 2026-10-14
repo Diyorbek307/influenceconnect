@@ -49,8 +49,10 @@ class AppRepository extends ChangeNotifier {
   List<Profile> get brands => _profiles.where((p) => p.isBrand).toList();
 
   // ─────────────────────────── Инициализация ───────────────────────────
-  Future<void> init() async {
-    _ds = SupabaseConfig.isConfigured ? SupabaseDataSource() : LocalDataSource();
+  /// [dataSource] можно передать в тестах, чтобы форсировать локальный источник.
+  Future<void> init({DataSource? dataSource}) async {
+    _ds = dataSource ??
+        (SupabaseConfig.isConfigured ? SupabaseDataSource() : LocalDataSource());
     await _ds.init();
 
     _prefs = await SharedPreferences.getInstance();
