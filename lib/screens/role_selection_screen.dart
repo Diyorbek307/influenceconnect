@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data/app_repository.dart';
 import '../theme/app_colors.dart';
+import '../widgets/animations.dart';
 import '../widgets/common.dart';
 import 'auth/login_screen.dart';
 import 'nav_helper.dart';
@@ -50,22 +51,28 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                 Expanded(
                   child: Column(
                     children: [
-                      _RoleCard(
-                        icon: Icons.business_center_rounded,
-                        gradient: AppColors.warmGradient,
-                        title: 'Бренд',
-                        description:
-                            'Ищу блогеров, создаю рекламные кампании, нахожу исполнителей.',
-                        onTap: () => _select('brand'),
+                      Appear(
+                        delay: const Duration(milliseconds: 80),
+                        child: _RoleCard(
+                          icon: Icons.business_center_rounded,
+                          gradient: AppColors.warmGradient,
+                          title: 'Бренд',
+                          description:
+                              'Ищу блогеров, создаю рекламные кампании, нахожу исполнителей.',
+                          onTap: () => _select('brand'),
+                        ),
                       ),
                       const SizedBox(height: 18),
-                      _RoleCard(
-                        icon: Icons.camera_alt_rounded,
-                        gradient: AppColors.brandGradient,
-                        title: 'Блогер',
-                        description:
-                            'Нахожу рекламные кампании, откликаюсь и зарабатываю на коллаборациях.',
-                        onTap: () => _select('blogger'),
+                      Appear(
+                        delay: const Duration(milliseconds: 220),
+                        child: _RoleCard(
+                          icon: Icons.camera_alt_rounded,
+                          gradient: AppColors.brandGradient,
+                          title: 'Блогер',
+                          description:
+                              'Нахожу рекламные кампании, откликаюсь и зарабатываю на коллаборациях.',
+                          onTap: () => _select('blogger'),
+                        ),
                       ),
                     ],
                   ),
@@ -108,9 +115,8 @@ class _RoleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return Pressable(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(28),
       child: Container(
         padding: const EdgeInsets.all(22),
         decoration: BoxDecoration(

@@ -34,6 +34,15 @@ class AppTheme {
       scaffoldBackgroundColor: bg,
       colorScheme: colorScheme,
       splashFactory: InkRipple.splashFactory,
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+          TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+          TargetPlatform.macOS: ZoomPageTransitionsBuilder(),
+          TargetPlatform.linux: ZoomPageTransitionsBuilder(),
+        },
+      ),
       textTheme: baseText.copyWith(
         headlineLarge: TextStyle(fontSize: 30, fontWeight: FontWeight.w800, color: text, letterSpacing: -0.5),
         headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: text, letterSpacing: -0.5),

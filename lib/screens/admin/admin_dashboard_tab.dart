@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
 import '../../theme/app_colors.dart';
+import '../../widgets/animations.dart';
 import '../../widgets/common.dart';
 
 class AdminDashboardTab extends StatelessWidget {
@@ -36,11 +37,13 @@ class AdminDashboardTab extends StatelessWidget {
               const Text('Всего пользователей',
                   style: TextStyle(color: Colors.white70, fontSize: 14)),
               const SizedBox(height: 6),
-              Text('${s.totalUsers}',
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.w800)),
+              CountUp(
+                value: s.totalUsers,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w800),
+              ),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -66,8 +69,16 @@ class AdminDashboardTab extends StatelessWidget {
           mainAxisSpacing: 12,
           childAspectRatio: 1.35,
           children: cards
-              .map((c) => StatCard(
-                  icon: c.$1, value: c.$2, label: c.$3, color: c.$4))
+              .asMap()
+              .entries
+              .map((e) => Appear(
+                    delay: Duration(milliseconds: 80 * e.key),
+                    child: StatCard(
+                        icon: e.value.$1,
+                        value: e.value.$2,
+                        label: e.value.$3,
+                        color: e.value.$4),
+                  ))
               .toList(),
         ),
       ],

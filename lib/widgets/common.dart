@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
+import 'animations.dart';
 
 /// Пустое состояние с иконкой и текстом.
 class EmptyState extends StatelessWidget {
@@ -20,7 +21,8 @@ class EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
+      child: Appear(
+        child: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -30,7 +32,10 @@ class EmptyState extends StatelessWidget {
               height: 88,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.primary.withValues(alpha: 0.1),
+                gradient: LinearGradient(colors: [
+                  AppColors.primary.withValues(alpha: 0.18),
+                  AppColors.secondary.withValues(alpha: 0.18),
+                ]),
               ),
               child: Icon(icon, size: 40, color: AppColors.primary),
             ),
@@ -53,6 +58,7 @@ class EmptyState extends StatelessWidget {
               action!,
             ],
           ],
+        ),
         ),
       ),
     );

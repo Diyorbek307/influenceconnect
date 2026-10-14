@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../data/app_repository.dart';
 import '../../models/profile.dart';
 import '../../theme/app_colors.dart';
+import '../../widgets/animations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/user_avatar.dart';
 import '../nav_helper.dart';
@@ -41,7 +42,8 @@ class ProfileTab extends StatelessWidget {
         return ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            Center(
+            Appear(
+              child: Center(
               child: Column(
                 children: [
                   UserAvatar(
@@ -63,6 +65,7 @@ class ProfileTab extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
+            ),
             ),
             const SizedBox(height: 24),
             if (user.isBlogger) _bloggerStats(context, user),
