@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data/app_repository.dart';
 import '../theme/app_colors.dart';
-import 'auth/login_screen.dart';
+import 'role_selection_screen.dart';
 
 class _OnboardPage {
   final IconData icon;
@@ -44,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await AppRepository.instance.markOnboardingSeen();
     if (!mounted) return;
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
+      MaterialPageRoute(builder: (_) => const RoleSelectionScreen()),
     );
   }
 

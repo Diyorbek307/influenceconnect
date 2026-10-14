@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../data/app_repository.dart';
 import '../theme/app_colors.dart';
-import 'auth/login_screen.dart';
 import 'nav_helper.dart';
 import 'onboarding_screen.dart';
+import 'role_selection_screen.dart';
 
 /// Заставка с логотипом и плавным появлением. После анимации направляет
 /// пользователя по правильному маршруту.
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
     if (!repo.onboardingSeen) {
       next = const OnboardingScreen();
     } else if (!repo.isLoggedIn) {
-      next = const LoginScreen();
+      next = const RoleSelectionScreen();
     } else {
       next = AppNav.homeForCurrentUser();
     }

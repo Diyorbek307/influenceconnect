@@ -18,6 +18,11 @@ class SeedData {
   /// аккаунт сразу становится администратором.
   static const String adminInviteCode = 'INFLUENCE-ADMIN';
 
+  // Аккаунты для входа по выбору роли (без регистрации).
+  static const String entryBrandEmail = 'brand@influence.app';
+  static const String entryBloggerEmail = 'blogger@influence.app';
+  static const String entryPassword = 'demo12345';
+
   static String _avatar(String seed) =>
       'https://i.pravatar.cc/400?u=${Uri.encodeComponent(seed)}';
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../data/app_repository.dart';
 import 'admin/admin_home.dart';
-import 'auth/login_screen.dart';
 import 'blogger/blogger_home.dart';
 import 'brand/brand_home.dart';
 import 'role_selection_screen.dart';
@@ -14,7 +13,7 @@ class AppNav {
   /// Экран, соответствующий текущему пользователю.
   static Widget homeForCurrentUser() {
     final user = AppRepository.instance.currentUser;
-    if (user == null) return const LoginScreen();
+    if (user == null) return const RoleSelectionScreen();
     if (!user.hasRole) return const RoleSelectionScreen();
     if (user.isAdmin) return const AdminHome();
     if (user.isBrand) return const BrandHome();
@@ -35,7 +34,7 @@ class AppNav {
     await AppRepository.instance.logout();
     if (!context.mounted) return;
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
+      MaterialPageRoute(builder: (_) => const RoleSelectionScreen()),
       (route) => false,
     );
   }

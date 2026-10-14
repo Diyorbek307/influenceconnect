@@ -8,6 +8,7 @@ import '../utils/iterable_ext.dart';
 import '../utils/uuid.dart';
 import 'data_source.dart';
 import 'local_data_source.dart';
+import 'seed_data.dart';
 import 'supabase_config.dart';
 import 'supabase_data_source.dart';
 
@@ -129,6 +130,36 @@ class AppRepository extends ChangeNotifier {
   Future<void> logout() async {
     await _ds.logout();
     _currentUser = null;
+    notifyListeners();
+  }
+
+  /// Вход по выбору роли без регистрации: логинится в демо-аккаунт роли,
+  /// а если его ещё нет — создаёт на лету.
+  Future<void> enterAsRole(String role) async {
+    final email = role == 'brand'
+        ? SeedData.entryBrandEmail
+        : SeedData.entryBloggerEmail;
+    const pass = SeedData.entryPassword;
+    try {
+      await _ds.login(email: email, password: pass);
+    } on AppException {
+      await _ds.register(email: email, password: pass, asAdmin: false);
+    }
+    await _reload();
+    _resolveCurrentUser();
+    final u = _currentUser;
+    if (u == null) throw AppException('Не удалось войти.');
+    if (u.role != role) {
+      u.role = role;
+      if (u.name.isEmpty) {
+        u.name = role == 'brand' ? 'Демо Бренд' : 'Демо Блогер';
+      }
+      if (role == 'blogger' && u.category.isEmpty) {
+        u.category = 'Лайфстайл';
+        u.platform = 'Instagram';
+      }
+      await _ds.saveProfile(u);
+    }
     notifyListeners();
   }
 

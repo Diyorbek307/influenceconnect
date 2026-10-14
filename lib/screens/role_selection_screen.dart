@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/app_repository.dart';
 import '../theme/app_colors.dart';
 import '../widgets/common.dart';
+import 'auth/login_screen.dart';
 import 'nav_helper.dart';
 
 class RoleSelectionScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
   Future<void> _select(String role) async {
     setState(() => _loading = true);
     try {
-      await AppRepository.instance.selectRole(role);
+      await AppRepository.instance.enterAsRole(role);
       if (!mounted) return;
       AppNav.goHome(context);
     } on AppException catch (e) {
@@ -69,6 +70,19 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                     ],
                   ),
                 ),
+              Center(
+                child: TextButton.icon(
+                  onPressed: _loading
+                      ? null
+                      : () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (_) => const LoginScreen()),
+                          ),
+                  icon: const Icon(Icons.admin_panel_settings_outlined, size: 18),
+                  label: const Text('Вход для администратора'),
+                ),
+              ),
+              const SizedBox(height: 8),
             ],
           ),
         ),
