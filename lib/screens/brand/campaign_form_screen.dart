@@ -146,17 +146,11 @@ class _CampaignFormScreenState extends State<CampaignFormScreen> {
                   onChanged: (v) => setState(() => _category = v ?? _category),
                 ),
                 const SizedBox(height: 28),
-                ElevatedButton.icon(
-                  onPressed: _loading ? null : _save,
-                  icon: _loading
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                              strokeWidth: 2.5, color: Colors.white),
-                        )
-                      : const Icon(Icons.check_rounded),
-                  label: Text(_isEdit ? 'Сохранить' : 'Создать кампанию'),
+                GradientButton(
+                  label: _isEdit ? 'Сохранить' : 'Создать кампанию',
+                  icon: Icons.check_rounded,
+                  loading: _loading,
+                  onPressed: _save,
                 ),
               ],
             ),

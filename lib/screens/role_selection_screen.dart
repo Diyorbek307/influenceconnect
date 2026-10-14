@@ -34,49 +34,47 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 16),
               Text('Кто вы?', style: Theme.of(context).textTheme.headlineLarge),
               const SizedBox(height: 8),
               Text('Выберите роль — так мы покажем нужные функции.',
                   style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: 32),
               if (_loading)
-                const Expanded(child: Center(child: CircularProgressIndicator()))
-              else
-                Expanded(
-                  child: Column(
-                    children: [
-                      Appear(
-                        delay: const Duration(milliseconds: 80),
-                        child: _RoleCard(
-                          icon: Icons.business_center_rounded,
-                          gradient: AppColors.warmGradient,
-                          title: 'Бренд',
-                          description:
-                              'Ищу блогеров, создаю рекламные кампании, нахожу исполнителей.',
-                          onTap: () => _select('brand'),
-                        ),
-                      ),
-                      const SizedBox(height: 18),
-                      Appear(
-                        delay: const Duration(milliseconds: 220),
-                        child: _RoleCard(
-                          icon: Icons.camera_alt_rounded,
-                          gradient: AppColors.brandGradient,
-                          title: 'Блогер',
-                          description:
-                              'Нахожу рекламные кампании, откликаюсь и зарабатываю на коллаборациях.',
-                          onTap: () => _select('blogger'),
-                        ),
-                      ),
-                    ],
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 80),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else ...[
+                Appear(
+                  delay: const Duration(milliseconds: 80),
+                  child: _RoleCard(
+                    icon: Icons.business_center_rounded,
+                    gradient: AppColors.warmGradient,
+                    title: 'Бренд',
+                    description:
+                        'Ищу блогеров, создаю рекламные кампании, нахожу исполнителей.',
+                    onTap: () => _select('brand'),
                   ),
                 ),
+                const SizedBox(height: 18),
+                Appear(
+                  delay: const Duration(milliseconds: 220),
+                  child: _RoleCard(
+                    icon: Icons.camera_alt_rounded,
+                    gradient: AppColors.brandGradient,
+                    title: 'Блогер',
+                    description:
+                        'Нахожу рекламные кампании, откликаюсь и зарабатываю на коллаборациях.',
+                    onTap: () => _select('blogger'),
+                  ),
+                ),
+              ],
+              const SizedBox(height: 28),
               Center(
                 child: TextButton.icon(
                   onPressed: _loading
@@ -89,7 +87,6 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                   label: const Text('Вход для администратора'),
                 ),
               ),
-              const SizedBox(height: 8),
             ],
           ),
         ),

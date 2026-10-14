@@ -120,16 +120,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: _loading ? null : _register,
-                  child: _loading
-                      ? const SizedBox(
-                          width: 22,
-                          height: 22,
-                          child: CircularProgressIndicator(
-                              strokeWidth: 2.5, color: Colors.white),
-                        )
-                      : const Text('Зарегистрироваться'),
+                GradientButton(
+                  label: 'Зарегистрироваться',
+                  icon: Icons.person_add_rounded,
+                  loading: _loading,
+                  onPressed: _register,
                 ),
                 const SizedBox(height: 8),
                 Row(

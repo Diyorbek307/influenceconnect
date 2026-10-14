@@ -164,17 +164,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   ),
                 ],
                 const SizedBox(height: 28),
-                ElevatedButton.icon(
-                  onPressed: _loading ? null : _save,
-                  icon: _loading
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                              strokeWidth: 2.5, color: Colors.white),
-                        )
-                      : const Icon(Icons.save_rounded),
-                  label: const Text('Сохранить'),
+                GradientButton(
+                  label: 'Сохранить',
+                  icon: Icons.save_rounded,
+                  loading: _loading,
+                  onPressed: _save,
                 ),
               ],
             ),

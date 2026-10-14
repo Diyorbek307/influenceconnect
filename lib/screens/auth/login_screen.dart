@@ -109,16 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       (v == null || v.isEmpty) ? 'Введите пароль' : null,
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: _loading ? null : _login,
-                  child: _loading
-                      ? const SizedBox(
-                          width: 22,
-                          height: 22,
-                          child: CircularProgressIndicator(
-                              strokeWidth: 2.5, color: Colors.white),
-                        )
-                      : const Text('Войти'),
+                GradientButton(
+                  label: 'Войти',
+                  icon: Icons.login_rounded,
+                  loading: _loading,
+                  onPressed: _login,
                 ),
                 const SizedBox(height: 8),
                 Row(
