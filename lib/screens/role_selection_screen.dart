@@ -52,16 +52,16 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                     children: [
                       _RoleCard(
                         icon: Icons.business_center_rounded,
-                        color: AppColors.primary,
+                        gradient: AppColors.warmGradient,
                         title: 'Бренд',
                         description:
                             'Ищу блогеров, создаю рекламные кампании, нахожу исполнителей.',
                         onTap: () => _select('brand'),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 18),
                       _RoleCard(
                         icon: Icons.camera_alt_rounded,
-                        color: AppColors.secondary,
+                        gradient: AppColors.brandGradient,
                         title: 'Блогер',
                         description:
                             'Нахожу рекламные кампании, откликаюсь и зарабатываю на коллаборациях.',
@@ -93,14 +93,14 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
 
 class _RoleCard extends StatelessWidget {
   final IconData icon;
-  final Color color;
+  final Gradient gradient;
   final String title;
   final String description;
   final VoidCallback onTap;
 
   const _RoleCard({
     required this.icon,
-    required this.color,
+    required this.gradient,
     required this.title,
     required this.description,
     required this.onTap,
@@ -110,38 +110,53 @@ class _RoleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(28),
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(22),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardTheme.color,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Theme.of(context).dividerColor),
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(28),
+          boxShadow: [
+            BoxShadow(
+              color: (gradient.colors.first).withValues(alpha: 0.4),
+              blurRadius: 24,
+              offset: const Offset(0, 12),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
-              width: 60,
-              height: 60,
+              width: 64,
+              height: 64,
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(16),
+                color: Colors.white.withValues(alpha: 0.22),
+                borderRadius: BorderRadius.circular(18),
               ),
-              child: Icon(icon, color: color, size: 30),
+              child: Icon(icon, color: Colors.white, size: 32),
             ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: Theme.of(context).textTheme.titleLarge),
+                  Text(title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                      )),
                   const SizedBox(height: 4),
                   Text(description,
-                      style: Theme.of(context).textTheme.bodySmall),
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.9),
+                        fontSize: 13,
+                        height: 1.35,
+                      )),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right_rounded),
+            const Icon(Icons.arrow_forward_rounded, color: Colors.white),
           ],
         ),
       ),
