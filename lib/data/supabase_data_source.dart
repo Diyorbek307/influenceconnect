@@ -33,19 +33,17 @@ class SupabaseDataSource implements DataSource {
     required String password,
     required bool asAdmin,
   }) async {
+    final normalized = email.trim().toLowerCase();
     try {
-      final res = await _db.auth.signUp(
-        email: email.trim().toLowerCase(),
-        password: password,
-      );
+      final res = await _db.auth.signUp(email: normalized, password: password);
       final user = res.user;
       if (user == null) {
         throw AppException('Не удалось создать аккаунт.');
       }
+      // Если после регистрации сессии нет — выполняем вход сразу
+      // (email авто-подтверждается триггером в базе, см. supabase_schema.sql).
       if (res.session == null) {
-        throw AppException(
-            'Подтвердите email по ссылке из письма, затем войдите. '
-            '(Для демо отключите Confirm email в Supabase → Authentication.)');
+        await _db.auth.signInWithPassword(email: normalized, password: password);
       }
       // Профиль создаётся триггером; дополним email и роль.
       await _db.from('profiles').update({

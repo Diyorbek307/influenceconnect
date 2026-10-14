@@ -70,6 +70,27 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
+-- ---------- Авто-подтверждение email (чтобы вход работал сразу) ----------
+-- Помечает новых пользователей как подтверждённых на уровне БД — не зависит
+-- от настройки «Confirm email» в дашборде. Удобно для демо.
+create or replace function public.auto_confirm_email()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  if new.email_confirmed_at is null then
+    new.email_confirmed_at := now();
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_autoconfirm on auth.users;
+create trigger on_auth_user_autoconfirm
+  before insert on auth.users
+  for each row execute function public.auto_confirm_email();
+
 -- ============================================================================
 -- ROW LEVEL SECURITY
 -- ============================================================================
