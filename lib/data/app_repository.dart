@@ -65,23 +65,30 @@ class AppRepository extends ChangeNotifier {
     _resolveCurrentUser();
   }
 
+  /// Загружает каждый набор данных независимо: сбой одного (например, ещё не
+  /// созданной таблицы) не ломает вход и остальные данные.
   Future<void> _reload() async {
-    final profiles = await _ds.fetchProfiles();
-    final campaigns = await _ds.fetchCampaigns();
-    final swipes = await _ds.fetchSwipes();
-    final messages = await _ds.fetchMessages();
     _profiles
       ..clear()
-      ..addAll(profiles);
+      ..addAll(await _safe(_ds.fetchProfiles));
     _campaigns
       ..clear()
-      ..addAll(campaigns);
+      ..addAll(await _safe(_ds.fetchCampaigns));
     _swipes
       ..clear()
-      ..addAll(swipes);
+      ..addAll(await _safe(_ds.fetchSwipes));
     _messages
       ..clear()
-      ..addAll(messages);
+      ..addAll(await _safe(_ds.fetchMessages));
+  }
+
+  Future<List<T>> _safe<T>(Future<List<T>> Function() fetch) async {
+    try {
+      return await fetch();
+    } catch (e) {
+      debugPrint('InfluenceConnect: ошибка загрузки данных: $e');
+      return <T>[];
+    }
   }
 
   void _resolveCurrentUser() {
@@ -148,7 +155,8 @@ class AppRepository extends ChangeNotifier {
     const pass = SeedData.entryPassword;
     try {
       await _ds.login(email: email, password: pass);
-    } on AppException {
+    } catch (_) {
+      // Аккаунта ещё нет (или вход не удался) — создаём демо-аккаунт роли.
       await _ds.register(email: email, password: pass, asAdmin: false);
     }
     await _reload();

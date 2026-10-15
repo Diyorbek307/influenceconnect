@@ -25,6 +25,8 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
       AppNav.goHome(context);
     } on AppException catch (e) {
       if (mounted) showSnack(context, e.message, error: true);
+    } catch (e) {
+      if (mounted) showSnack(context, 'Не удалось войти: $e', error: true);
     } finally {
       if (mounted) setState(() => _loading = false);
     }

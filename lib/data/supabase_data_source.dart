@@ -109,7 +109,11 @@ class SupabaseDataSource implements DataSource {
 
   @override
   Future<void> saveProfile(Profile p) async {
-    await _db.from('profiles').upsert(_profileToDb(p));
+    // Строка профиля уже создана триггером при регистрации, поэтому обновляем
+    // её (UPDATE проходит по RLS profiles_update_own), а не upsert —
+    // для upsert потребовалась бы отдельная INSERT-политика.
+    final data = _profileToDb(p)..remove('id');
+    await _db.from('profiles').update(data).eq('id', p.id);
   }
 
   @override
