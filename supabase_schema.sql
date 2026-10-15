@@ -91,12 +91,23 @@ create trigger on_auth_user_autoconfirm
   before insert on auth.users
   for each row execute function public.auto_confirm_email();
 
+-- ---------- MESSAGES (чат бренд ↔ блогер) ----------
+create table if not exists public.messages (
+  id          uuid primary key default gen_random_uuid(),
+  from_id     uuid not null references public.profiles(id) on delete cascade,
+  to_id       uuid not null references public.profiles(id) on delete cascade,
+  text        text not null,
+  created_at  timestamptz not null default now()
+);
+create index if not exists messages_pair_idx on public.messages(from_id, to_id);
+
 -- ============================================================================
 -- ROW LEVEL SECURITY
 -- ============================================================================
 alter table public.profiles  enable row level security;
 alter table public.campaigns enable row level security;
 alter table public.swipes    enable row level security;
+alter table public.messages  enable row level security;
 
 -- Проверка «я админ?»
 create or replace function public.is_admin()
@@ -153,6 +164,16 @@ create policy swipes_write_own on public.swipes
   for all to authenticated
   using (from_id = auth.uid())
   with check (from_id = auth.uid());
+
+-- MESSAGES: участники переписки читают; пишут только от своего имени.
+drop policy if exists messages_select on public.messages;
+create policy messages_select on public.messages
+  for select to authenticated
+  using (from_id = auth.uid() or to_id = auth.uid());
+
+drop policy if exists messages_insert on public.messages;
+create policy messages_insert on public.messages
+  for insert to authenticated with check (from_id = auth.uid());
 
 -- ============================================================================
 -- Назначить себя администратором (выполнить ПОСЛЕ регистрации своего аккаунта):

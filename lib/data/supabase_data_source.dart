@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/campaign.dart';
+import '../models/message.dart';
 import '../models/profile.dart';
 import '../models/swipe.dart';
 import 'data_source.dart';
@@ -133,6 +134,32 @@ class SupabaseDataSource implements DataSource {
           onConflict: 'from_id,target_type,target_id',
         );
   }
+
+  @override
+  Future<List<Message>> fetchMessages() async {
+    final rows = await _db.from('messages').select();
+    return (rows as List)
+        .map((e) => _messageFromDb(e as Map<String, dynamic>))
+        .toList();
+  }
+
+  @override
+  Future<void> saveMessage(Message m) async {
+    await _db.from('messages').insert({
+      'from_id': m.fromId,
+      'to_id': m.toId,
+      'text': m.text,
+    });
+  }
+
+  Message _messageFromDb(Map<String, dynamic> j) => Message(
+        id: j['id'] as String,
+        fromId: j['from_id'] as String,
+        toId: j['to_id'] as String,
+        text: j['text'] as String? ?? '',
+        createdAt: DateTime.tryParse(j['created_at'] as String? ?? '') ??
+            DateTime.now(),
+      );
 
   // ─────────────── Мапперы БД → модель и обратно ───────────────
   Profile _profileFromDb(Map<String, dynamic> j) => Profile(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../theme/app_colors.dart';
 import 'common.dart';
@@ -86,6 +87,7 @@ class _SwipeDeckState<T> extends State<SwipeDeck<T>>
 
   void _flingOut(SwipeAction action) {
     if (_animatingOut || _currentItem == null) return;
+    HapticFeedback.lightImpact();
     final size = context.size ?? const Size(400, 600);
     final dx = switch (action) {
       SwipeAction.like => size.width * 1.5,

@@ -73,7 +73,9 @@ class BrandCampaignsTab extends StatelessWidget {
                     label: const Text('Создать кампанию'),
                   ),
                 )
-              : ListView.builder(
+              : RefreshIndicator(
+                  onRefresh: () => repo.refresh(),
+                  child: ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: campaigns.length,
                   itemBuilder: (context, i) {
@@ -124,6 +126,7 @@ class BrandCampaignsTab extends StatelessWidget {
                       ),
                     );
                   },
+                ),
                 ),
           floatingActionButton: campaigns.isEmpty
               ? null

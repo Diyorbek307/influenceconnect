@@ -21,11 +21,16 @@ class BloggerCampaignsTab extends StatelessWidget {
       child: SwipeDeck<Campaign>(
         items: campaigns,
         saveEnabled: false,
-        emptyState: const EmptyState(
+        emptyState: EmptyState(
           icon: Icons.done_all_rounded,
           title: 'Новых кампаний нет',
           subtitle:
               'Вы просмотрели все актуальные предложения. Проверьте раздел «Запросы».',
+          action: OutlinedButton.icon(
+            onPressed: () => repo.refresh(),
+            icon: const Icon(Icons.refresh_rounded),
+            label: const Text('Обновить'),
+          ),
         ),
         cardBuilder: (_, c) =>
             CampaignSwipeCard(campaign: c, brand: repo.profileById(c.brandId)),

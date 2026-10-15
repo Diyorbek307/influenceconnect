@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/campaign.dart';
+import '../models/message.dart';
 import '../models/profile.dart';
 import '../models/swipe.dart';
 import '../utils/iterable_ext.dart';
@@ -31,6 +32,7 @@ class AppRepository extends ChangeNotifier {
   final List<Profile> _profiles = [];
   final List<Campaign> _campaigns = [];
   final List<Swipe> _swipes = [];
+  final List<Message> _messages = [];
 
   Profile? _currentUser;
   bool _onboardingSeen = false;
@@ -67,6 +69,7 @@ class AppRepository extends ChangeNotifier {
     final profiles = await _ds.fetchProfiles();
     final campaigns = await _ds.fetchCampaigns();
     final swipes = await _ds.fetchSwipes();
+    final messages = await _ds.fetchMessages();
     _profiles
       ..clear()
       ..addAll(profiles);
@@ -76,6 +79,9 @@ class AppRepository extends ChangeNotifier {
     _swipes
       ..clear()
       ..addAll(swipes);
+    _messages
+      ..clear()
+      ..addAll(messages);
   }
 
   void _resolveCurrentUser() {
@@ -369,6 +375,51 @@ class AppRepository extends ChangeNotifier {
       }
     }
     return result;
+  }
+
+  // ─────────────────────────── Чат ───────────────────────────
+  /// Сообщения переписки текущего пользователя с [otherId] по времени.
+  List<Message> conversationWith(String otherId) {
+    final me = _currentUser?.id;
+    if (me == null) return [];
+    return _messages
+        .where((m) =>
+            (m.fromId == me && m.toId == otherId) ||
+            (m.fromId == otherId && m.toId == me))
+        .toList()
+      ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+  }
+
+  Future<void> sendMessage(String toId, String text) async {
+    final me = _currentUser;
+    if (me == null || text.trim().isEmpty) return;
+    final msg = Message(
+      id: Uuid.v4(),
+      fromId: me.id,
+      toId: toId,
+      text: text.trim(),
+      createdAt: DateTime.now(),
+    );
+    await _ds.saveMessage(msg);
+    _messages.add(msg);
+    notifyListeners();
+  }
+
+  /// Собеседники, с которыми у текущего пользователя есть переписка.
+  List<Profile> conversationPartners() {
+    final me = _currentUser?.id;
+    if (me == null) return [];
+    final ids = <String>{};
+    for (final m in _messages) {
+      if (m.fromId == me) ids.add(m.toId);
+      if (m.toId == me) ids.add(m.fromId);
+    }
+    return _profiles.where((p) => ids.contains(p.id)).toList();
+  }
+
+  Message? lastMessageWith(String otherId) {
+    final conv = conversationWith(otherId);
+    return conv.isEmpty ? null : conv.last;
   }
 
   // ─────────────────────────── Админ ───────────────────────────

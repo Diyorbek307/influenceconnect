@@ -6,6 +6,7 @@ import '../../theme/app_colors.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/user_avatar.dart';
+import '../shared/chat_screen.dart';
 
 class BloggerRequestsTab extends StatelessWidget {
   const BloggerRequestsTab({super.key});
@@ -106,6 +107,9 @@ class BloggerRequestsTab extends StatelessWidget {
         border: Border.all(color: Theme.of(context).dividerColor),
       ),
       child: ListTile(
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => ChatScreen(otherUserId: brand.id)),
+        ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         leading: UserAvatar(
             imageUrl: brand.avatarUrl, initials: brand.initials, size: 52),

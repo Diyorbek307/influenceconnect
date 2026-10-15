@@ -4,9 +4,17 @@ import '../../data/app_repository.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../shared/blogger_detail_screen.dart';
+import '../shared/chat_screen.dart';
 
 class BrandMatchesTab extends StatelessWidget {
   const BrandMatchesTab({super.key});
+
+  void _openChat(BuildContext context, String id) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => ChatScreen(otherUserId: id)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +56,7 @@ class BrandMatchesTab extends StatelessWidget {
                             children: matches
                                 .map((m) => BloggerListItem(
                                       blogger: m.blogger,
+                                      onTap: () => _openChat(context, m.blogger.id),
                                       trailing: SizedBox(
                                         width: 96,
                                         child: Column(
@@ -84,6 +93,7 @@ class BrandMatchesTab extends StatelessWidget {
                             children: applications
                                 .map((a) => BloggerListItem(
                                       blogger: a.blogger,
+                                      onTap: () => _openChat(context, a.blogger.id),
                                       trailing: StatusBadge(
                                           text: a.campaign.budgetLabel,
                                           color: AppColors.success),
@@ -101,7 +111,12 @@ class BrandMatchesTab extends StatelessWidget {
                         : ListView(
                             padding: const EdgeInsets.all(16),
                             children: saved
-                                .map((b) => BloggerListItem(blogger: b))
+                                .map((b) => BloggerListItem(
+                                      blogger: b,
+                                      onTap: () => openBloggerDetail(context, b),
+                                      trailing: const Icon(
+                                          Icons.chevron_right_rounded),
+                                    ))
                                 .toList(),
                           ),
                   ],

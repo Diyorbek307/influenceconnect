@@ -1,4 +1,5 @@
 import '../models/campaign.dart';
+import '../models/message.dart';
 import '../models/profile.dart';
 import '../models/swipe.dart';
 
@@ -42,4 +43,7 @@ abstract class DataSource {
   Future<void> deleteCampaign(String id);
 
   Future<void> saveSwipe(Swipe swipe);
+
+  Future<List<Message>> fetchMessages();
+  Future<void> saveMessage(Message message);
 }

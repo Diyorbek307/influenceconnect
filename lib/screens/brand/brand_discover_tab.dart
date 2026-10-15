@@ -22,11 +22,16 @@ class BrandDiscoverTab extends StatelessWidget {
       child: SwipeDeck<Profile>(
         items: bloggers,
         saveEnabled: true,
-        emptyState: const EmptyState(
+        emptyState: EmptyState(
           icon: Icons.done_all_rounded,
           title: 'Вы просмотрели всех блогеров',
           subtitle:
               'Новые авторы появятся здесь позже. Загляните в раздел «Совпадения».',
+          action: OutlinedButton.icon(
+            onPressed: () => repo.refresh(),
+            icon: const Icon(Icons.refresh_rounded),
+            label: const Text('Обновить'),
+          ),
         ),
         cardBuilder: (_, blogger) => BloggerSwipeCard(blogger: blogger),
         onSwipe: (blogger, action) {

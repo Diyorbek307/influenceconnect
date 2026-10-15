@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/campaign.dart';
+import '../models/message.dart';
 import '../models/profile.dart';
 import '../models/swipe.dart';
 import '../utils/iterable_ext.dart';
@@ -15,12 +16,14 @@ class LocalDataSource implements DataSource {
   static const _kProfiles = 'ic_profiles';
   static const _kCampaigns = 'ic_campaigns';
   static const _kSwipes = 'ic_swipes';
+  static const _kMessages = 'ic_messages';
   static const _kCurrentUser = 'ic_current_user';
 
   SharedPreferences? _prefs;
   final List<Profile> _profiles = [];
   final List<Campaign> _campaigns = [];
   final List<Swipe> _swipes = [];
+  final List<Message> _messages = [];
   String? _currentUserId;
   int _counter = 0;
 
@@ -52,6 +55,13 @@ class LocalDataSource implements DataSource {
           ..addAll((jsonDecode(rawSwipes) as List)
               .map((e) => Swipe.fromJson(e as Map<String, dynamic>)));
       }
+      final rawMessages = prefs.getString(_kMessages);
+      if (rawMessages != null) {
+        _messages
+          ..clear()
+          ..addAll((jsonDecode(rawMessages) as List)
+              .map((e) => Message.fromJson(e as Map<String, dynamic>)));
+      }
     }
     _currentUserId = prefs.getString(_kCurrentUser);
   }
@@ -65,6 +75,8 @@ class LocalDataSource implements DataSource {
         _kCampaigns, jsonEncode(_campaigns.map((e) => e.toJson()).toList()));
     await prefs.setString(
         _kSwipes, jsonEncode(_swipes.map((e) => e.toJson()).toList()));
+    await prefs.setString(
+        _kMessages, jsonEncode(_messages.map((e) => e.toJson()).toList()));
   }
 
   String _newId(String prefix) {
@@ -182,6 +194,16 @@ class LocalDataSource implements DataSource {
         s.targetType == swipe.targetType &&
         s.targetId == swipe.targetId);
     _swipes.add(swipe);
+    await _persist();
+  }
+
+  @override
+  Future<List<Message>> fetchMessages() async =>
+      _messages.map((e) => Message.fromJson(e.toJson())).toList();
+
+  @override
+  Future<void> saveMessage(Message message) async {
+    _messages.add(message);
     await _persist();
   }
 }
