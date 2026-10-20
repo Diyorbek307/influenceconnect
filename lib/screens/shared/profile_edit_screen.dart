@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
 import '../../data/constants.dart';
+import '../../l10n/l10n.dart';
 import '../../widgets/common.dart';
 
 /// Редактирование профиля текущего пользователя (бренд или блогер).
@@ -165,7 +166,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 ],
                 const SizedBox(height: 28),
                 GradientButton(
-                  label: 'Сохранить',
+                  label: tr('save'),
                   icon: Icons.save_rounded,
                   loading: _loading,
                   onPressed: _save,

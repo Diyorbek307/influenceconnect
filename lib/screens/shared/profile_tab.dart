@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/profile.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/language_switcher.dart';
 import '../../widgets/user_avatar.dart';
 import '../nav_helper.dart';
 import 'profile_edit_screen.dart';
@@ -16,14 +18,14 @@ class ProfileTab extends StatelessWidget {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Выйти из аккаунта?'),
+        title: Text(tr('logout_q')),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Отмена')),
+              child: Text(tr('cancel'))),
           FilledButton(
               onPressed: () => Navigator.pop(ctx, true),
-              child: const Text('Выйти')),
+              child: Text(tr('logout'))),
         ],
       ),
     );
@@ -57,7 +59,7 @@ class ProfileTab extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 6),
                   StatusBadge(
-                    text: user.isBrand ? 'Бренд' : 'Блогер',
+                    text: user.isBrand ? tr('brand') : tr('blogger'),
                     color: AppColors.role(user.role),
                   ),
                   const SizedBox(height: 4),
@@ -71,7 +73,7 @@ class ProfileTab extends StatelessWidget {
             if (user.isBlogger) _bloggerStats(context, user),
             if (user.bio.isNotEmpty) ...[
               const SizedBox(height: 16),
-              _section(context, 'О себе', user.bio),
+              _section(context, tr('about_me'), user.bio),
             ],
             const SizedBox(height: 16),
             _infoRow(context, Icons.category_rounded,
@@ -83,19 +85,31 @@ class ProfileTab extends StatelessWidget {
               _infoRow(context, Icons.public_rounded, 'Платформа',
                   user.platform.isEmpty ? '—' : user.platform),
             const SizedBox(height: 24),
+            Row(
+              children: [
+                Icon(Icons.language_rounded,
+                    size: 20, color: AppColors.lightTextMuted),
+                const SizedBox(width: 12),
+                Text(tr('language'),
+                    style: Theme.of(context).textTheme.bodyMedium),
+                const Spacer(),
+                const LanguageSwitcher(),
+              ],
+            ),
+            const SizedBox(height: 20),
             OutlinedButton.icon(
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const ProfileEditScreen()),
               ),
               icon: const Icon(Icons.edit_outlined),
-              label: const Text('Редактировать профиль'),
+              label: Text(tr('edit_profile')),
             ),
             const SizedBox(height: 12),
             OutlinedButton.icon(
               onPressed: () => _confirmLogout(context),
               style: OutlinedButton.styleFrom(foregroundColor: AppColors.danger),
               icon: const Icon(Icons.logout_rounded),
-              label: const Text('Выйти'),
+              label: Text(tr('logout')),
             ),
           ],
         );
@@ -110,7 +124,7 @@ class ProfileTab extends StatelessWidget {
           child: StatCard(
               icon: Icons.people_alt_rounded,
               value: user.followersLabel,
-              label: 'Подписчики',
+              label: tr('followers'),
               color: AppColors.primary),
         ),
         const SizedBox(width: 12),
@@ -118,7 +132,7 @@ class ProfileTab extends StatelessWidget {
           child: StatCard(
               icon: Icons.favorite_rounded,
               value: '${user.engagement.toStringAsFixed(1)}%',
-              label: 'Вовлечённость',
+              label: tr('engagement'),
               color: AppColors.secondary),
         ),
       ],

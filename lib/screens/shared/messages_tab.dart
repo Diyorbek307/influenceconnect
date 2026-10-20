@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../widgets/common.dart';
 import '../../widgets/user_avatar.dart';
 import 'chat_screen.dart';
@@ -27,11 +28,10 @@ class MessagesTab extends StatelessWidget {
         });
 
         if (partners.isEmpty) {
-          return const EmptyState(
+          return EmptyState(
             icon: Icons.forum_outlined,
-            title: 'Пока нет сообщений',
-            subtitle:
-                'Диалоги появятся здесь после совпадения с брендом или блогером.',
+            title: tr('empty_chats_t'),
+            subtitle: tr('empty_chats_s'),
           );
         }
 

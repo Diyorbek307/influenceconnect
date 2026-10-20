@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
 import '../../data/constants.dart';
+import '../../l10n/l10n.dart';
 import '../../models/campaign.dart';
 import '../../widgets/common.dart';
 
@@ -147,7 +148,7 @@ class _CampaignFormScreenState extends State<CampaignFormScreen> {
                 ),
                 const SizedBox(height: 28),
                 GradientButton(
-                  label: _isEdit ? 'Сохранить' : 'Создать кампанию',
+                  label: _isEdit ? tr('save') : tr('create_campaign'),
                   icon: Icons.check_rounded,
                   loading: _loading,
                   onPressed: _save,

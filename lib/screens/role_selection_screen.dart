@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../data/app_repository.dart';
+import '../l10n/l10n.dart';
 import '../theme/app_colors.dart';
 import '../widgets/animations.dart';
 import '../widgets/common.dart';
+import '../widgets/language_switcher.dart';
 import 'auth/login_screen.dart';
 import 'nav_helper.dart';
 
@@ -41,9 +43,15 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Кто вы?', style: Theme.of(context).textTheme.headlineLarge),
+              Align(
+                alignment: Alignment.centerRight,
+                child: LanguageSwitcher(),
+              ),
+              const SizedBox(height: 16),
+              Text(tr('who_are_you'),
+                  style: Theme.of(context).textTheme.headlineLarge),
               const SizedBox(height: 8),
-              Text('Выберите роль — так мы покажем нужные функции.',
+              Text(tr('choose_role'),
                   style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: 32),
               if (_loading)
@@ -57,9 +65,8 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                   child: _RoleCard(
                     icon: Icons.business_center_rounded,
                     gradient: AppColors.warmGradient,
-                    title: 'Бренд',
-                    description:
-                        'Ищу блогеров, создаю рекламные кампании, нахожу исполнителей.',
+                    title: tr('brand'),
+                    description: tr('brand_desc'),
                     onTap: () => _select('brand'),
                   ),
                 ),
@@ -69,9 +76,8 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                   child: _RoleCard(
                     icon: Icons.camera_alt_rounded,
                     gradient: AppColors.brandGradient,
-                    title: 'Блогер',
-                    description:
-                        'Нахожу рекламные кампании, откликаюсь и зарабатываю на коллаборациях.',
+                    title: tr('blogger'),
+                    description: tr('blogger_desc'),
                     onTap: () => _select('blogger'),
                   ),
                 ),
@@ -86,7 +92,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                                 builder: (_) => const LoginScreen()),
                           ),
                   icon: const Icon(Icons.admin_panel_settings_outlined, size: 18),
-                  label: const Text('Вход для администратора'),
+                  label: Text(tr('admin_login')),
                 ),
               ),
             ],

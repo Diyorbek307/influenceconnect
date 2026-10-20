@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../widgets/common.dart';
 import '../nav_helper.dart';
 
@@ -51,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Регистрация')),
+      appBar: AppBar(title: Text(tr('register'))),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -60,7 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Создать аккаунт',
+                Text(tr('create_account'),
                     style: Theme.of(context).textTheme.headlineMedium),
                 const SizedBox(height: 6),
                 Text('Роль вы выберете на следующем шаге',
@@ -83,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   obscureText: _obscure,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
-                    labelText: 'Пароль',
+                    labelText: tr('password'),
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
                     suffixIcon: IconButton(
                       icon: Icon(_obscure
@@ -101,9 +102,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _confirm,
                   obscureText: _obscure,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    labelText: 'Повторите пароль',
-                    prefixIcon: Icon(Icons.lock_outline_rounded),
+                  decoration: InputDecoration(
+                    labelText: tr('password_repeat'),
+                    prefixIcon: const Icon(Icons.lock_outline_rounded),
                   ),
                   validator: (v) =>
                       v != _password.text ? 'Пароли не совпадают' : null,
@@ -113,15 +114,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _invite,
                   textInputAction: TextInputAction.done,
                   onFieldSubmitted: (_) => _register(),
-                  decoration: const InputDecoration(
-                    labelText: 'Код-приглашение (необязательно)',
-                    prefixIcon: Icon(Icons.vpn_key_outlined),
-                    helperText: 'Для сотрудников платформы',
+                  decoration: InputDecoration(
+                    labelText: tr('invite_code'),
+                    prefixIcon: const Icon(Icons.vpn_key_outlined),
                   ),
                 ),
                 const SizedBox(height: 24),
                 GradientButton(
-                  label: 'Зарегистрироваться',
+                  label: tr('register'),
                   icon: Icons.person_add_rounded,
                   loading: _loading,
                   onPressed: _register,
@@ -130,11 +130,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Уже есть аккаунт?',
+                    Text(tr('have_account'),
                         style: Theme.of(context).textTheme.bodySmall),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Войти'),
+                      child: Text(tr('login')),
                     ),
                   ],
                 ),

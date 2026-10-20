@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../widgets/common.dart';
 import '../shared/messages_tab.dart';
 import '../shared/profile_tab.dart';
@@ -16,13 +17,18 @@ class BloggerHome extends StatefulWidget {
 
 class _BloggerHomeState extends State<BloggerHome> {
   int _index = 0;
-  static const _titles = ['Кампании', 'Запросы', 'Сообщения', 'Профиль'];
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: AppRepository.instance,
       builder: (context, _) {
+        final titles = [
+          tr('nav_campaigns'),
+          tr('nav_requests'),
+          tr('title_messages'),
+          tr('nav_profile'),
+        ];
         const pages = [
           BloggerCampaignsTab(),
           BloggerRequestsTab(),
@@ -30,28 +36,28 @@ class _BloggerHomeState extends State<BloggerHome> {
           ProfileTab(),
         ];
         return Scaffold(
-          appBar: GradientAppBar(title: _titles[_index]),
+          appBar: GradientAppBar(title: titles[_index]),
           body: SafeArea(child: pages[_index]),
           bottomNavigationBar: NavigationBar(
             selectedIndex: _index,
             onDestinationSelected: (i) => setState(() => _index = i),
-            destinations: const [
+            destinations: [
               NavigationDestination(
-                  icon: Icon(Icons.explore_outlined),
-                  selectedIcon: Icon(Icons.explore),
-                  label: 'Кампании'),
+                  icon: const Icon(Icons.explore_outlined),
+                  selectedIcon: const Icon(Icons.explore),
+                  label: tr('nav_campaigns')),
               NavigationDestination(
-                  icon: Icon(Icons.favorite_outline),
-                  selectedIcon: Icon(Icons.favorite),
-                  label: 'Запросы'),
+                  icon: const Icon(Icons.favorite_outline),
+                  selectedIcon: const Icon(Icons.favorite),
+                  label: tr('nav_requests')),
               NavigationDestination(
-                  icon: Icon(Icons.chat_bubble_outline),
-                  selectedIcon: Icon(Icons.chat_bubble),
-                  label: 'Чаты'),
+                  icon: const Icon(Icons.chat_bubble_outline),
+                  selectedIcon: const Icon(Icons.chat_bubble),
+                  label: tr('nav_chats')),
               NavigationDestination(
-                  icon: Icon(Icons.person_outline),
-                  selectedIcon: Icon(Icons.person),
-                  label: 'Профиль'),
+                  icon: const Icon(Icons.person_outline),
+                  selectedIcon: const Icon(Icons.person),
+                  label: tr('nav_profile')),
             ],
           ),
         );

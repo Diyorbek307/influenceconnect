@@ -15,9 +15,10 @@ void main() {
 
     expect(find.text('InfluenceConnect'), findsOneWidget);
 
-    // Дать таймеру заставки сработать и завершить переход.
+    // Даём таймеру заставки сработать (без pumpAndSettle — на экранах
+    // бесконечная анимация фона, settle не завершится).
     await tester.pump(const Duration(seconds: 2));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 400));
   });
 
   test('Локальная демо-база наполняется при первом запуске', () async {

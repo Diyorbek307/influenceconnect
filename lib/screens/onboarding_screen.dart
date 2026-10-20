@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/app_repository.dart';
+import '../l10n/l10n.dart';
 import '../theme/app_colors.dart';
 import '../widgets/animated_background.dart';
 import 'role_selection_screen.dart';
@@ -24,21 +25,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int _page = 0;
 
   static const _pages = [
-    _OnboardPage(
-      Icons.hub_rounded,
-      'Добро пожаловать',
-      'InfluenceConnect — платформа, где бренды и блогеры находят друг друга для рекламных коллабораций.',
-    ),
-    _OnboardPage(
-      Icons.swipe_rounded,
-      'Свайпай и выбирай',
-      'Бренды листают блогеров, блогеры — кампании. Нравится — лайк, не подходит — пропуск.',
-    ),
-    _OnboardPage(
-      Icons.handshake_rounded,
-      'Находи совпадения',
-      'Когда интерес взаимный — появляется совпадение, и можно начинать сотрудничество.',
-    ),
+    _OnboardPage(Icons.hub_rounded, 'onb1_title', 'onb1_desc'),
+    _OnboardPage(Icons.swipe_rounded, 'onb2_title', 'onb2_desc'),
+    _OnboardPage(Icons.handshake_rounded, 'onb3_title', 'onb3_desc'),
   ];
 
   Future<void> _finish() async {
@@ -67,8 +56,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: _finish,
-                  child: const Text('Пропустить',
-                      style: TextStyle(color: Colors.white70)),
+                  child: Text(tr('skip'),
+                      style: const TextStyle(color: Colors.white70)),
                 ),
               ),
               Expanded(
@@ -94,7 +83,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           const SizedBox(height: 48),
                           Text(
-                            p.title,
+                            tr(p.title),
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 28,
@@ -104,7 +93,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            p.description,
+                            tr(p.description),
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 16,
@@ -153,7 +142,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         );
                       }
                     },
-                    child: Text(isLast ? 'Начать' : 'Далее'),
+                    child: Text(isLast ? tr('start') : tr('next')),
                   ),
                 ),
               ),

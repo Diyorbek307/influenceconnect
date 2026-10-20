@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/profile.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/common.dart';
@@ -123,7 +124,7 @@ class BloggerDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 28),
                   GradientButton(
-                    label: 'Написать',
+                    label: tr('write_msg'),
                     icon: Icons.chat_bubble_rounded,
                     onPressed: () => Navigator.of(context).push(
                       MaterialPageRoute(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/constants.dart';
+import '../l10n/l10n.dart';
 import '../theme/app_colors.dart';
 
 /// Горизонтальная лента чипов-категорий для фильтрации лент.
@@ -42,7 +43,7 @@ class CategoryFilter extends StatelessWidget {
                         : Theme.of(context).dividerColor),
               ),
               child: Text(
-                c,
+                c == 'Все' ? tr('all') : c,
                 style: TextStyle(
                   color: active
                       ? Colors.white

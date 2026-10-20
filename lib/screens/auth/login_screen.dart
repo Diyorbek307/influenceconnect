@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
 import '../../data/seed_data.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/common.dart';
 import '../nav_helper.dart';
@@ -72,10 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Icon(Icons.hub_rounded, color: Colors.white, size: 40),
                 ),
                 const SizedBox(height: 24),
-                Text('С возвращением 👋',
+                Text(tr('welcome_back'),
                     style: Theme.of(context).textTheme.headlineMedium),
                 const SizedBox(height: 6),
-                Text('Войдите, чтобы продолжить',
+                Text(tr('login_sub'),
                     style: Theme.of(context).textTheme.bodySmall),
                 const SizedBox(height: 32),
                 TextFormField(
@@ -96,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textInputAction: TextInputAction.done,
                   onFieldSubmitted: (_) => _login(),
                   decoration: InputDecoration(
-                    labelText: 'Пароль',
+                    labelText: tr('password'),
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
                     suffixIcon: IconButton(
                       icon: Icon(_obscure
@@ -110,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
                 GradientButton(
-                  label: 'Войти',
+                  label: tr('login'),
                   icon: Icons.login_rounded,
                   loading: _loading,
                   onPressed: _login,
@@ -119,14 +120,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Нет аккаунта?',
+                    Text(tr('no_account'),
                         style: Theme.of(context).textTheme.bodySmall),
                     TextButton(
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (_) => const RegisterScreen()),
                       ),
-                      child: const Text('Зарегистрироваться'),
+                      child: Text(tr('register')),
                     ),
                   ],
                 ),

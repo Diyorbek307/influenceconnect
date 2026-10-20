@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/message.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/common.dart';
@@ -186,10 +187,10 @@ class _Composer extends StatelessWidget {
                 minLines: 1,
                 maxLines: 4,
                 onSubmitted: (_) => onSend(),
-                decoration: const InputDecoration(
-                  hintText: 'Сообщение…',
+                decoration: InputDecoration(
+                  hintText: tr('send_hint'),
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
               ),
             ),
