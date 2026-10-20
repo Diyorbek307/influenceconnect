@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../data/app_repository.dart';
 import '../theme/app_colors.dart';
+import '../widgets/animated_background.dart';
 import 'nav_helper.dart';
 import 'onboarding_screen.dart';
 import 'role_selection_screen.dart';
@@ -75,9 +76,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(gradient: AppColors.brandGradient),
+      body: AnimatedGradientBackground(
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

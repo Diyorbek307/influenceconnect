@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data/app_repository.dart';
 import '../theme/app_colors.dart';
+import '../widgets/animated_background.dart';
 import 'role_selection_screen.dart';
 
 class _OnboardPage {
@@ -58,8 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     final isLast = _page == _pages.length - 1;
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(gradient: AppColors.brandGradient),
+      body: AnimatedGradientBackground(
         child: SafeArea(
           child: Column(
             children: [

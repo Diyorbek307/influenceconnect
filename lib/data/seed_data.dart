@@ -23,8 +23,30 @@ class SeedData {
   static const String entryBloggerEmail = 'blogger@influence.app';
   static const String entryPassword = 'demo12345';
 
-  static String _avatar(String seed) =>
-      'https://i.pravatar.cc/400?u=${Uri.encodeComponent(seed)}';
+  /// Реальные портреты для блогеров (надёжный CDN randomuser.me);
+  /// для остальных — pravatar по сиду.
+  static const Map<String, String> _portraits = {
+    'b_dilnoza': 'women/44',
+    'b_jasur': 'men/32',
+    'b_aziza': 'women/68',
+    'b_bekzod': 'men/45',
+    'b_madina': 'women/12',
+    'b_sardor': 'men/76',
+    'b_nilufar': 'women/33',
+    'b_shohruh': 'men/51',
+    'b_kamola': 'women/90',
+    'b_otabek': 'men/19',
+    'b_zarina': 'women/57',
+    'b_islom': 'men/8',
+    'b_gulnora': 'women/25',
+    'b_davron': 'men/64',
+  };
+
+  static String _avatar(String seed) {
+    final p = _portraits[seed];
+    if (p != null) return 'https://randomuser.me/api/portraits/$p.jpg';
+    return 'https://i.pravatar.cc/400?u=${Uri.encodeComponent(seed)}';
+  }
 
   static String _cover(String seed) =>
       'https://picsum.photos/seed/${Uri.encodeComponent(seed)}/900/700';
