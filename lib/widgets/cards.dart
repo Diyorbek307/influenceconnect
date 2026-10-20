@@ -17,17 +17,40 @@ class BloggerSwipeCard extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          NetworkCover(
-            url: blogger.avatarUrl,
-            fallbackIcon: Icons.person_rounded,
-          ),
+          // Фото во весь экран с запасным ярким градиентом и крупными инициалами.
+          _BloggerPhoto(blogger: blogger),
           const DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.transparent, Colors.transparent, Colors.black87],
-                stops: [0.0, 0.45, 1.0],
+                colors: [Colors.black38, Colors.transparent, Colors.black, Colors.black],
+                stops: [0.0, 0.35, 0.8, 1.0],
+              ),
+            ),
+          ),
+          // Бейдж категории сверху
+          Positioned(
+            top: 18,
+            left: 18,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.92),
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.local_fire_department_rounded,
+                      size: 15, color: AppColors.primary),
+                  const SizedBox(width: 5),
+                  Text(blogger.category,
+                      style: const TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 12)),
+                ],
               ),
             ),
           ),
@@ -40,9 +63,11 @@ class BloggerSwipeCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Expanded(
+                    Flexible(
                       child: Text(
                         blogger.displayName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 28,
@@ -50,6 +75,9 @@ class BloggerSwipeCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(width: 8),
+                    const Icon(Icons.verified_rounded,
+                        color: Color(0xFF3BA7FF), size: 24),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -99,6 +127,37 @@ class BloggerSwipeCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Фото блогера на всю карточку с ярким запасным вариантом (инициалы).
+class _BloggerPhoto extends StatelessWidget {
+  final Profile blogger;
+  const _BloggerPhoto({required this.blogger});
+
+  @override
+  Widget build(BuildContext context) {
+    final fallback = Container(
+      decoration: const BoxDecoration(gradient: AppColors.vividGradient),
+      alignment: Alignment.center,
+      child: Text(
+        blogger.initials,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 120,
+          fontWeight: FontWeight.w900,
+          letterSpacing: 2,
+        ),
+      ),
+    );
+    if (blogger.avatarUrl.isEmpty) return fallback;
+    return Image.network(
+      blogger.avatarUrl,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stack) => fallback,
+      loadingBuilder: (context, child, progress) =>
+          progress == null ? child : fallback,
     );
   }
 }

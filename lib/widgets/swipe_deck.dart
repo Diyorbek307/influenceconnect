@@ -152,15 +152,18 @@ class _SwipeDeckState<T> extends State<SwipeDeck<T>>
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // Карточка позади.
+              // Карточка позади — слегка уменьшена и опущена (как в Tinder).
               if (hasNext)
-                Transform.scale(
-                  scale: 0.94,
-                  child: Opacity(
-                    opacity: 0.6,
-                    child: _CardFrame(
-                      child: widget.cardBuilder(
-                          context, widget.items[_index + 1]),
+                Transform.translate(
+                  offset: const Offset(0, 22),
+                  child: Transform.scale(
+                    scale: 0.92,
+                    child: Opacity(
+                      opacity: 0.85,
+                      child: _CardFrame(
+                        child: widget.cardBuilder(
+                            context, widget.items[_index + 1]),
+                      ),
                     ),
                   ),
                 ),
