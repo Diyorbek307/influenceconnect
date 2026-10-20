@@ -210,6 +210,54 @@ class NetworkCover extends StatelessWidget {
   }
 }
 
+/// Премиальная шапка с фирменным градиентом (для панелей).
+class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final List<Widget>? actions;
+  final PreferredSizeWidget? bottom;
+  final Gradient gradient;
+
+  const GradientAppBar({
+    super.key,
+    required this.title,
+    this.actions,
+    this.bottom,
+    this.gradient = AppColors.brandGradient,
+  });
+
+  @override
+  Size get preferredSize =>
+      Size.fromHeight(kToolbarHeight + (bottom?.preferredSize.height ?? 0));
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(title,
+          style: const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20)),
+      backgroundColor: Colors.transparent,
+      foregroundColor: Colors.white,
+      elevation: 0,
+      actions: actions,
+      bottom: bottom,
+      iconTheme: const IconThemeData(color: Colors.white),
+      actionsIconTheme: const IconThemeData(color: Colors.white),
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: gradient,
+          boxShadow: [
+            BoxShadow(
+              color: gradient.colors.first.withValues(alpha: 0.35),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// Яркая градиентная кнопка для главных действий.
 class GradientButton extends StatelessWidget {
   final String label;

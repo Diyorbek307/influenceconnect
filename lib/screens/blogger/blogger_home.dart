@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../widgets/common.dart';
 import '../shared/profile_tab.dart';
 import 'blogger_campaigns_tab.dart';
 import 'blogger_requests_tab.dart';
@@ -27,7 +28,7 @@ class _BloggerHomeState extends State<BloggerHome> {
           ProfileTab(),
         ];
         return Scaffold(
-          appBar: AppBar(title: Text(_titles[_index])),
+          appBar: GradientAppBar(title: _titles[_index]),
           body: SafeArea(child: pages[_index]),
           bottomNavigationBar: NavigationBar(
             selectedIndex: _index,

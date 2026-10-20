@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../widgets/common.dart';
 import 'brand_discover_tab.dart';
 import 'brand_campaigns_tab.dart';
 import 'brand_matches_tab.dart';
@@ -31,7 +32,7 @@ class _BrandHomeState extends State<BrandHome> {
           ProfileTab(),
         ];
         return Scaffold(
-          appBar: AppBar(title: Text(_titles[_index])),
+          appBar: GradientAppBar(title: _titles[_index]),
           body: SafeArea(child: pages[_index]),
           bottomNavigationBar: NavigationBar(
             selectedIndex: _index,

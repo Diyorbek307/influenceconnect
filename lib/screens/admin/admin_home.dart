@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../widgets/common.dart';
 import '../nav_helper.dart';
 import 'admin_campaigns_tab.dart';
 import 'admin_dashboard_tab.dart';
@@ -28,8 +29,13 @@ class _AdminHomeState extends State<AdminHome> {
           AdminCampaignsTab(),
         ];
         return Scaffold(
-          appBar: AppBar(
-            title: Text('Админ · ${_titles[_index]}'),
+          appBar: GradientAppBar(
+            title: 'Админ · ${_titles[_index]}',
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFFFF8A3D), Color(0xFFFF2D74)],
+            ),
             actions: [
               IconButton(
                 tooltip: 'Выйти',
