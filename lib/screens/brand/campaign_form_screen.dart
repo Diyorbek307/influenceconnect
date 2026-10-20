@@ -67,7 +67,7 @@ class _CampaignFormScreenState extends State<CampaignFormScreen> {
       }
       if (!mounted) return;
       Navigator.of(context).pop(true);
-      showSnack(context, _isEdit ? 'Кампания обновлена' : 'Кампания создана');
+      showSnack(context, tr('saved'));
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -85,7 +85,7 @@ class _CampaignFormScreenState extends State<CampaignFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(_isEdit ? 'Редактировать кампанию' : 'Новая кампания')),
+          title: Text(_isEdit ? tr('campaign_edit') : tr('campaign_new'))),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -97,38 +97,38 @@ class _CampaignFormScreenState extends State<CampaignFormScreen> {
                 TextFormField(
                   controller: _title,
                   textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'Название',
-                    prefixIcon: Icon(Icons.title_rounded),
+                  decoration: InputDecoration(
+                    labelText: tr('field_title'),
+                    prefixIcon: const Icon(Icons.title_rounded),
                   ),
                   validator: (v) =>
-                      (v == null || v.trim().isEmpty) ? 'Введите название' : null,
+                      (v == null || v.trim().isEmpty) ? tr('val_title') : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _description,
                   maxLines: 5,
                   textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'Описание',
+                  decoration: InputDecoration(
+                    labelText: tr('field_description'),
                     alignLabelWithHint: true,
-                    prefixIcon: Icon(Icons.notes_rounded),
+                    prefixIcon: const Icon(Icons.notes_rounded),
                   ),
                   validator: (v) => (v == null || v.trim().length < 10)
-                      ? 'Опишите задачу подробнее (от 10 символов)'
+                      ? tr('val_desc')
                       : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _budget,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Бюджет, ₽',
-                    prefixIcon: Icon(Icons.payments_outlined),
+                  decoration: InputDecoration(
+                    labelText: tr('field_budget'),
+                    prefixIcon: const Icon(Icons.payments_outlined),
                   ),
                   validator: (v) {
                     final n = int.tryParse((v ?? '').trim());
-                    if (n == null || n <= 0) return 'Введите сумму бюджета';
+                    if (n == null || n <= 0) return tr('val_budget');
                     return null;
                   },
                 ),
@@ -136,9 +136,9 @@ class _CampaignFormScreenState extends State<CampaignFormScreen> {
                 DropdownButtonFormField<String>(
                   initialValue: _category,
                   isExpanded: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Категория',
-                    prefixIcon: Icon(Icons.category_outlined),
+                  decoration: InputDecoration(
+                    labelText: tr('field_category'),
+                    prefixIcon: const Icon(Icons.category_outlined),
                   ),
                   items: AppConst.categories
                       .map((c) =>

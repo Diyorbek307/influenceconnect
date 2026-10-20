@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/campaign.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/cards.dart';
@@ -33,23 +34,23 @@ class BrandCampaignsTab extends StatelessWidget {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Удалить кампанию?'),
-        content: Text('«${c.title}» будет удалена безвозвратно.'),
+        title: Text(tr('delete_campaign_q')),
+        content: Text(c.title),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Отмена')),
+              child: Text(tr('cancel'))),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: AppColors.danger),
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Удалить'),
+            child: Text(tr('delete')),
           ),
         ],
       ),
     );
     if (ok == true) {
       await AppRepository.instance.deleteCampaign(c.id);
-      if (context.mounted) showSnack(context, 'Кампания удалена');
+      if (context.mounted) showSnack(context, tr('deleted'));
     }
   }
 
@@ -65,12 +66,12 @@ class BrandCampaignsTab extends StatelessWidget {
           body: campaigns.isEmpty
               ? EmptyState(
                   icon: Icons.campaign_outlined,
-                  title: 'У вас пока нет кампаний',
-                  subtitle: 'Создайте первую кампанию, чтобы блогеры могли откликнуться.',
+                  title: tr('no_campaigns_t'),
+                  subtitle: tr('no_campaigns_s'),
                   action: ElevatedButton.icon(
                     onPressed: () => _create(context),
                     icon: const Icon(Icons.add_rounded),
-                    label: const Text('Создать кампанию'),
+                    label: Text(tr('create_campaign')),
                   ),
                 )
               : RefreshIndicator(
@@ -92,7 +93,7 @@ class BrandCampaignsTab extends StatelessWidget {
                         children: [
                           if (applicants > 0)
                             StatusBadge(
-                                text: '$applicants откл.',
+                                text: '$applicants',
                                 color: AppColors.primary),
                           PopupMenuButton<String>(
                             onSelected: (v) {
@@ -109,17 +110,17 @@ class BrandCampaignsTab extends StatelessWidget {
                               }
                             },
                             itemBuilder: (_) => [
-                              const PopupMenuItem(
-                                  value: 'open', child: Text('Открыть')),
-                              const PopupMenuItem(
-                                  value: 'edit', child: Text('Редактировать')),
+                              PopupMenuItem(
+                                  value: 'open', child: Text(tr('menu_open'))),
+                              PopupMenuItem(
+                                  value: 'edit', child: Text(tr('menu_edit'))),
                               PopupMenuItem(
                                   value: 'toggle',
                                   child: Text(c.isActive
-                                      ? 'Закрыть'
-                                      : 'Активировать')),
-                              const PopupMenuItem(
-                                  value: 'delete', child: Text('Удалить')),
+                                      ? tr('menu_close')
+                                      : tr('menu_activate'))),
+                              PopupMenuItem(
+                                  value: 'delete', child: Text(tr('delete'))),
                             ],
                           ),
                         ],
@@ -133,7 +134,7 @@ class BrandCampaignsTab extends StatelessWidget {
               : FloatingActionButton.extended(
                   onPressed: () => _create(context),
                   icon: const Icon(Icons.add_rounded),
-                  label: const Text('Кампания'),
+                  label: Text(tr('campaign_one')),
                 ),
         );
       },

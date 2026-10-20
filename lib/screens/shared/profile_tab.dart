@@ -77,12 +77,12 @@ class ProfileTab extends StatelessWidget {
             ],
             const SizedBox(height: 16),
             _infoRow(context, Icons.category_rounded,
-                user.isBrand ? 'Индустрия' : 'Ниша',
+                user.isBrand ? tr('field_industry') : tr('field_niche'),
                 user.category.isEmpty ? '—' : user.category),
-            _infoRow(context, Icons.place_rounded, 'Город',
+            _infoRow(context, Icons.place_rounded, tr('city'),
                 user.location.isEmpty ? '—' : user.location),
             if (user.isBlogger)
-              _infoRow(context, Icons.public_rounded, 'Платформа',
+              _infoRow(context, Icons.public_rounded, tr('field_platform'),
                   user.platform.isEmpty ? '—' : user.platform),
             const SizedBox(height: 24),
             Row(

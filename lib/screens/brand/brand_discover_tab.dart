@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/profile.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/category_filter.dart';
@@ -43,13 +44,13 @@ class _BrandDiscoverTabState extends State<BrandDiscoverTab> {
               emptyState: EmptyState(
                 icon: Icons.done_all_rounded,
                 title: _category == 'Все'
-                    ? 'Вы просмотрели всех блогеров'
-                    : 'Нет блогеров в нише «$_category»',
-                subtitle: 'Смените фильтр или загляните в «Совпадения».',
+                    ? tr('all_viewed_bloggers')
+                    : tr('no_bloggers_niche'),
+                subtitle: tr('change_filter_matches'),
                 action: OutlinedButton.icon(
                   onPressed: () => repo.refresh(),
                   icon: const Icon(Icons.refresh_rounded),
-                  label: const Text('Обновить'),
+                  label: Text(tr('refresh')),
                 ),
               ),
               cardBuilder: (_, blogger) => BloggerSwipeCard(blogger: blogger),
@@ -62,9 +63,11 @@ class _BrandDiscoverTabState extends State<BrandDiscoverTab> {
                   liked: liked,
                 );
                 if (action == SwipeAction.like) {
-                  showSnack(context, 'Интерес к ${blogger.displayName} отправлен');
+                  showSnack(context,
+                      '${blogger.displayName}: ${tr('interest_sent')}');
                 } else if (action == SwipeAction.save) {
-                  showSnack(context, '${blogger.displayName} сохранён(а)');
+                  showSnack(context,
+                      '${blogger.displayName} ${tr('saved_female')}');
                 }
               },
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/campaign.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/cards.dart';
@@ -14,23 +15,23 @@ class AdminCampaignsTab extends StatelessWidget {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Удалить кампанию?'),
-        content: Text('«${c.title}» будет удалена безвозвратно.'),
+        title: Text(tr('delete_campaign_q')),
+        content: Text(c.title),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Отмена')),
+              child: Text(tr('cancel'))),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: AppColors.danger),
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Удалить'),
+            child: Text(tr('delete')),
           ),
         ],
       ),
     );
     if (ok == true) {
       await repo.deleteCampaign(c.id);
-      if (context.mounted) showSnack(context, 'Кампания удалена');
+      if (context.mounted) showSnack(context, tr('deleted'));
     }
   }
 
@@ -44,10 +45,10 @@ class AdminCampaignsTab extends StatelessWidget {
           ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
         if (campaigns.isEmpty) {
-          return const EmptyState(
+          return EmptyState(
             icon: Icons.campaign_outlined,
-            title: 'Кампаний нет',
-            subtitle: 'Когда бренды создадут кампании, они появятся здесь.',
+            title: tr('no_campaigns_admin_t'),
+            subtitle: tr('no_campaigns_s'),
           );
         }
 
@@ -67,7 +68,7 @@ class AdminCampaignsTab extends StatelessWidget {
                           c.id, c.isActive ? 'closed' : 'active');
                       if (context.mounted) {
                         showSnack(context,
-                            c.isActive ? 'Кампания закрыта' : 'Кампания активирована');
+                            c.isActive ? tr('status_closed') : tr('status_active'));
                       }
                     case 'delete':
                       _confirmDelete(context, c, repo);
@@ -76,8 +77,8 @@ class AdminCampaignsTab extends StatelessWidget {
                 itemBuilder: (_) => [
                   PopupMenuItem(
                       value: 'toggle',
-                      child: Text(c.isActive ? 'Закрыть' : 'Активировать')),
-                  const PopupMenuItem(value: 'delete', child: Text('Удалить')),
+                      child: Text(c.isActive ? tr('menu_close') : tr('menu_activate'))),
+                  PopupMenuItem(value: 'delete', child: Text(tr('delete'))),
                 ],
                 child: Container(
                   padding: const EdgeInsets.all(6),
@@ -97,7 +98,7 @@ class AdminCampaignsTab extends StatelessWidget {
                         Text(c.title,
                             style: Theme.of(context).textTheme.titleLarge),
                         const SizedBox(height: 4),
-                        Text('Бренд: ${brand?.displayName ?? 'неизвестен'}',
+                        Text('${tr('brand')}: ${brand?.displayName ?? '—'}',
                             style: Theme.of(context).textTheme.bodySmall),
                         const SizedBox(height: 12),
                         Text(c.description,

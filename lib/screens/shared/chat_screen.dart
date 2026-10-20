@@ -65,14 +65,14 @@ class _ChatScreenState extends State<ChatScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(other?.displayName ?? 'Чат',
+                      Text(other?.displayName ?? tr('chat'),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w800)),
                       if (other != null)
                         Text(
-                          other.isBrand ? 'Бренд' : 'Блогер',
+                          other.isBrand ? tr('brand') : tr('blogger'),
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                     ],
@@ -85,10 +85,10 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               Expanded(
                 child: messages.isEmpty
-                    ? const EmptyState(
+                    ? EmptyState(
                         icon: Icons.chat_bubble_outline_rounded,
-                        title: 'Начните переписку',
-                        subtitle: 'Напишите первое сообщение, чтобы договориться о коллаборации.',
+                        title: tr('chat_start_t'),
+                        subtitle: tr('chat_start_s'),
                       )
                     : ListView.builder(
                         controller: _scroll,

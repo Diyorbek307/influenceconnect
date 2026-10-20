@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/app_colors.dart';
 import '../../utils/iterable_ext.dart';
 import '../../widgets/cards.dart';
@@ -22,9 +23,9 @@ class CampaignDetailScreen extends StatelessWidget {
         if (campaign == null) {
           return Scaffold(
             appBar: AppBar(),
-            body: const EmptyState(
+            body: EmptyState(
                 icon: Icons.error_outline_rounded,
-                title: 'Кампания не найдена'),
+                title: tr('profile_not_found')),
           );
         }
 
@@ -35,7 +36,7 @@ class CampaignDetailScreen extends StatelessWidget {
             .toList();
 
         return Scaffold(
-          appBar: AppBar(title: const Text('Кампания')),
+          appBar: AppBar(title: Text(tr('campaign_one'))),
           body: ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -66,10 +67,10 @@ class CampaignDetailScreen extends StatelessWidget {
                   InfoChip(
                     icon: Icons.circle,
                     label: campaign.isActive
-                        ? 'Активна'
+                        ? tr('status_active')
                         : campaign.isPending
-                            ? 'На модерации'
-                            : 'Закрыта',
+                            ? tr('status_pending')
+                            : tr('status_closed'),
                     color: campaign.isActive
                         ? AppColors.success
                         : AppColors.warning,
@@ -82,7 +83,7 @@ class CampaignDetailScreen extends StatelessWidget {
               const SizedBox(height: 28),
               Row(
                 children: [
-                  Text('Отклики',
+                  Text(tr('responses'),
                       style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(width: 8),
                   StatusBadge(
@@ -91,13 +92,12 @@ class CampaignDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               if (applicants.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
                   child: EmptyState(
                     icon: Icons.inbox_outlined,
-                    title: 'Пока нет откликов',
-                    subtitle:
-                        'Как только блогеры откликнутся, они появятся здесь.',
+                    title: tr('no_responses_t'),
+                    subtitle: tr('empty_chats_s'),
                   ),
                 )
               else

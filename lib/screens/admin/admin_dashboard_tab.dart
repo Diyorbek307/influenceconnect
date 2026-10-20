@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/common.dart';
@@ -14,12 +15,12 @@ class AdminDashboardTab extends StatelessWidget {
     final s = repo.adminStats;
 
     final cards = [
-      (Icons.business_rounded, '${s.brands}', 'Бренды', AppColors.primary),
-      (Icons.camera_alt_rounded, '${s.bloggers}', 'Блогеры', AppColors.secondary),
-      (Icons.campaign_rounded, '${s.campaigns}', 'Кампании', AppColors.accent),
-      (Icons.play_circle_outline_rounded, '${s.activeCampaigns}', 'Активные', AppColors.success),
-      (Icons.favorite_rounded, '${s.likes}', 'Лайки', AppColors.danger),
-      (Icons.verified_rounded, '${s.matches}', 'Совпадения', AppColors.warning),
+      (Icons.business_rounded, '${s.brands}', tr('brands'), AppColors.primary),
+      (Icons.camera_alt_rounded, '${s.bloggers}', tr('bloggers'), AppColors.secondary),
+      (Icons.campaign_rounded, '${s.campaigns}', tr('nav_campaigns'), AppColors.accent),
+      (Icons.play_circle_outline_rounded, '${s.activeCampaigns}', tr('active'), AppColors.success),
+      (Icons.favorite_rounded, '${s.likes}', tr('likes'), AppColors.danger),
+      (Icons.verified_rounded, '${s.matches}', tr('nav_matches'), AppColors.warning),
     ];
 
     return ListView(
@@ -34,8 +35,8 @@ class AdminDashboardTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Всего пользователей',
-                  style: TextStyle(color: Colors.white70, fontSize: 14)),
+              Text(tr('total_users'),
+                  style: const TextStyle(color: Colors.white70, fontSize: 14)),
               const SizedBox(height: 6),
               CountUp(
                 value: s.totalUsers,
@@ -50,7 +51,7 @@ class AdminDashboardTab extends StatelessWidget {
                   const Icon(Icons.block_rounded,
                       color: Colors.white70, size: 16),
                   const SizedBox(width: 6),
-                  Text('Заблокировано: ${s.blocked}',
+                  Text('${tr('blocked_count')}: ${s.blocked}',
                       style:
                           const TextStyle(color: Colors.white70, fontSize: 13)),
                 ],
@@ -59,7 +60,7 @@ class AdminDashboardTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        Text('Метрики', style: Theme.of(context).textTheme.titleLarge),
+        Text(tr('metrics'), style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 12),
         GridView.count(
           crossAxisCount: 2,

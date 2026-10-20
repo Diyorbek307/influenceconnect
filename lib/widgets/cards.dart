@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/l10n.dart';
 import '../models/campaign.dart';
 import '../models/profile.dart';
 import '../theme/app_colors.dart';
@@ -290,10 +291,10 @@ class CampaignListItem extends StatelessWidget {
             ? AppColors.warning
             : AppColors.lightTextMuted;
     final statusText = campaign.isActive
-        ? 'Активна'
+        ? tr('status_active')
         : campaign.isPending
-            ? 'На модерации'
-            : 'Закрыта';
+            ? tr('status_pending')
+            : tr('status_closed');
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),

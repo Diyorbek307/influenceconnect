@@ -60,7 +60,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       );
       if (!mounted) return;
       Navigator.of(context).pop();
-      showSnack(context, 'Профиль сохранён');
+      showSnack(context, tr('saved'));
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -79,7 +79,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Редактировать профиль')),
+      appBar: AppBar(title: Text(tr('edit_profile'))),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -92,29 +92,30 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   controller: _name,
                   textCapitalization: TextCapitalization.words,
                   decoration: InputDecoration(
-                    labelText: _isBlogger ? 'Имя / псевдоним' : 'Название бренда',
+                    labelText:
+                        _isBlogger ? tr('field_name_blogger') : tr('field_name_brand'),
                     prefixIcon: const Icon(Icons.badge_outlined),
                   ),
                   validator: (v) =>
-                      (v == null || v.trim().isEmpty) ? 'Укажите имя' : null,
+                      (v == null || v.trim().isEmpty) ? tr('val_name') : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _bio,
                   maxLines: 4,
                   textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'О себе',
+                  decoration: InputDecoration(
+                    labelText: tr('about_me'),
                     alignLabelWithHint: true,
-                    prefixIcon: Icon(Icons.info_outline_rounded),
+                    prefixIcon: const Icon(Icons.info_outline_rounded),
                   ),
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _location,
-                  decoration: const InputDecoration(
-                    labelText: 'Город',
-                    prefixIcon: Icon(Icons.place_outlined),
+                  decoration: InputDecoration(
+                    labelText: tr('city'),
+                    prefixIcon: const Icon(Icons.place_outlined),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -122,7 +123,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   initialValue: _category,
                   isExpanded: true,
                   decoration: InputDecoration(
-                    labelText: _isBlogger ? 'Ниша' : 'Индустрия',
+                    labelText: _isBlogger ? tr('field_niche') : tr('field_industry'),
                     prefixIcon: const Icon(Icons.category_outlined),
                   ),
                   items: AppConst.categories
@@ -135,9 +136,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   DropdownButtonFormField<String>(
                     initialValue: _platform,
                     isExpanded: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Платформа',
-                      prefixIcon: Icon(Icons.public_rounded),
+                    decoration: InputDecoration(
+                      labelText: tr('field_platform'),
+                      prefixIcon: const Icon(Icons.public_rounded),
                     ),
                     items: AppConst.platforms
                         .map((p) => DropdownMenuItem(value: p, child: Text(p)))
@@ -148,9 +149,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   TextFormField(
                     controller: _followers,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Число подписчиков',
-                      prefixIcon: Icon(Icons.people_alt_outlined),
+                    decoration: InputDecoration(
+                      labelText: tr('field_followers'),
+                      prefixIcon: const Icon(Icons.people_alt_outlined),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -158,9 +159,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     controller: _engagement,
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
-                    decoration: const InputDecoration(
-                      labelText: 'Вовлечённость (ER), %',
-                      prefixIcon: Icon(Icons.favorite_outline_rounded),
+                    decoration: InputDecoration(
+                      labelText: tr('field_engagement'),
+                      prefixIcon: const Icon(Icons.favorite_outline_rounded),
                     ),
                   ),
                 ],

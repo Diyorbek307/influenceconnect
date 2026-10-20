@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
@@ -35,9 +36,9 @@ class BrandMatchesTab extends StatelessWidget {
                 labelColor: AppColors.primary,
                 indicatorColor: AppColors.primary,
                 tabs: [
-                  Tab(text: 'Мэтчи (${matches.length})'),
-                  Tab(text: 'Отклики (${applications.length})'),
-                  Tab(text: 'Избранное (${saved.length})'),
+                  Tab(text: '${tr('nav_matches')} (${matches.length})'),
+                  Tab(text: '${tr('responses')} (${applications.length})'),
+                  Tab(text: '${tr('favorites')} (${saved.length})'),
                 ],
               ),
               Expanded(
@@ -45,11 +46,10 @@ class BrandMatchesTab extends StatelessWidget {
                   children: [
                     // Взаимные совпадения
                     matches.isEmpty
-                        ? const EmptyState(
+                        ? EmptyState(
                             icon: Icons.favorite_border_rounded,
-                            title: 'Пока нет совпадений',
-                            subtitle:
-                                'Мэтч появится, когда вы и блогер проявите взаимный интерес.',
+                            title: tr('empty_matches_t'),
+                            subtitle: tr('empty_matches_s'),
                           )
                         : ListView(
                             padding: const EdgeInsets.all(16),
@@ -82,11 +82,10 @@ class BrandMatchesTab extends StatelessWidget {
                           ),
                     // Отклики на кампании
                     applications.isEmpty
-                        ? const EmptyState(
+                        ? EmptyState(
                             icon: Icons.inbox_outlined,
-                            title: 'Нет откликов',
-                            subtitle:
-                                'Создайте кампанию — блогеры начнут откликаться.',
+                            title: tr('no_responses_t'),
+                            subtitle: tr('no_campaigns_s'),
                           )
                         : ListView(
                             padding: const EdgeInsets.all(16),
@@ -102,11 +101,10 @@ class BrandMatchesTab extends StatelessWidget {
                           ),
                     // Сохранённые блогеры
                     saved.isEmpty
-                        ? const EmptyState(
+                        ? EmptyState(
                             icon: Icons.bookmark_border_rounded,
-                            title: 'Избранное пусто',
-                            subtitle:
-                                'Свайпайте блогеров вверх, чтобы сохранить их здесь.',
+                            title: tr('nothing_liked'),
+                            subtitle: tr('change_filter_matches'),
                           )
                         : ListView(
                             padding: const EdgeInsets.all(16),

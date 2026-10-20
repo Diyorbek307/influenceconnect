@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/profile.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/common.dart';
@@ -45,9 +46,9 @@ class _AdminUsersTabState extends State<AdminUsersTab> {
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
               child: TextField(
                 onChanged: (v) => setState(() => _query = v),
-                decoration: const InputDecoration(
-                  hintText: 'Поиск по имени или email',
-                  prefixIcon: Icon(Icons.search_rounded),
+                decoration: InputDecoration(
+                  hintText: tr('search_user'),
+                  prefixIcon: const Icon(Icons.search_rounded),
                 ),
               ),
             ),
@@ -57,18 +58,18 @@ class _AdminUsersTabState extends State<AdminUsersTab> {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
-                  _filterChip('all', 'Все'),
-                  _filterChip('brand', 'Бренды'),
-                  _filterChip('blogger', 'Блогеры'),
-                  _filterChip('blocked', 'Заблокированные'),
+                  _filterChip('all', tr('all')),
+                  _filterChip('brand', tr('brands')),
+                  _filterChip('blogger', tr('bloggers')),
+                  _filterChip('blocked', tr('blocked_count')),
                 ],
               ),
             ),
             Expanded(
               child: users.isEmpty
-                  ? const EmptyState(
+                  ? EmptyState(
                       icon: Icons.person_search_rounded,
-                      title: 'Никого не найдено')
+                      title: tr('nobody_found'))
                   : ListView.builder(
                       padding: const EdgeInsets.all(16),
                       itemCount: users.length,
@@ -97,7 +98,8 @@ class _AdminUsersTabState extends State<AdminUsersTab> {
 
   Widget _userTile(BuildContext context, Profile u, AppRepository repo) {
     final roleColor = AppColors.role(u.role);
-    final roleLabel = u.isBrand ? 'Бренд' : (u.isBlogger ? 'Блогер' : 'Без роли');
+    final roleLabel =
+        u.isBrand ? tr('brand') : (u.isBlogger ? tr('blogger') : tr('no_role'));
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -119,7 +121,7 @@ class _AdminUsersTabState extends State<AdminUsersTab> {
             ),
             const SizedBox(width: 8),
             if (u.isBlocked)
-              const StatusBadge(text: 'Заблокирован', color: AppColors.danger),
+              StatusBadge(text: tr('blocked'), color: AppColors.danger),
           ],
         ),
         subtitle: Padding(
@@ -134,21 +136,20 @@ class _AdminUsersTabState extends State<AdminUsersTab> {
             switch (v) {
               case 'block':
                 await repo.setBlocked(u.id, true);
-                if (context.mounted) showSnack(context, 'Пользователь заблокирован');
+                if (context.mounted) showSnack(context, tr('blocked'));
               case 'unblock':
                 await repo.setBlocked(u.id, false);
-                if (context.mounted) showSnack(context, 'Пользователь разблокирован');
+                if (context.mounted) showSnack(context, tr('unblock'));
               case 'delete':
                 _confirmDelete(context, u, repo);
             }
           },
           itemBuilder: (_) => [
             if (!u.isBlocked)
-              const PopupMenuItem(value: 'block', child: Text('Заблокировать')),
+              PopupMenuItem(value: 'block', child: Text(tr('block'))),
             if (u.isBlocked)
-              const PopupMenuItem(
-                  value: 'unblock', child: Text('Разблокировать')),
-            const PopupMenuItem(value: 'delete', child: Text('Удалить')),
+              PopupMenuItem(value: 'unblock', child: Text(tr('unblock'))),
+            PopupMenuItem(value: 'delete', child: Text(tr('delete'))),
           ],
           child: Container(
             width: 36,
@@ -169,24 +170,23 @@ class _AdminUsersTabState extends State<AdminUsersTab> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Удалить пользователя?'),
-        content: Text(
-            '«${u.displayName}» и все связанные данные будут удалены безвозвратно.'),
+        title: Text(tr('delete_user_q')),
+        content: Text(u.displayName),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Отмена')),
+              child: Text(tr('cancel'))),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: AppColors.danger),
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Удалить'),
+            child: Text(tr('delete')),
           ),
         ],
       ),
     );
     if (ok == true) {
       await repo.deleteProfile(u.id);
-      if (context.mounted) showSnack(context, 'Пользователь удалён');
+      if (context.mounted) showSnack(context, tr('deleted'));
     }
   }
 }

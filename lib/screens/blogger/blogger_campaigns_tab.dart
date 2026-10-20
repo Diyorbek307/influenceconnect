@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/campaign.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/category_filter.dart';
@@ -43,13 +44,13 @@ class _BloggerCampaignsTabState extends State<BloggerCampaignsTab> {
               emptyState: EmptyState(
                 icon: Icons.done_all_rounded,
                 title: _category == 'Все'
-                    ? 'Новых кампаний нет'
-                    : 'Нет кампаний в категории «$_category»',
-                subtitle: 'Смените фильтр или проверьте раздел «Запросы».',
+                    ? tr('no_new_campaigns')
+                    : tr('no_campaigns_cat'),
+                subtitle: tr('change_filter_requests'),
                 action: OutlinedButton.icon(
                   onPressed: () => repo.refresh(),
                   icon: const Icon(Icons.refresh_rounded),
-                  label: const Text('Обновить'),
+                  label: Text(tr('refresh')),
                 ),
               ),
               cardBuilder: (_, c) => CampaignSwipeCard(
@@ -62,7 +63,9 @@ class _BloggerCampaignsTabState extends State<BloggerCampaignsTab> {
                   targetId: c.id,
                   liked: liked,
                 );
-                if (liked) showSnack(context, 'Вы откликнулись на «${c.title}»');
+                if (liked) {
+                  showSnack(context, '${tr('you_responded')} «${c.title}»');
+                }
               },
             ),
           ),

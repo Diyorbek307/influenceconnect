@@ -43,8 +43,9 @@ class MessagesTab extends StatelessWidget {
             final p = partners[i];
             final last = repo.lastMessageWith(p.id);
             final preview = last == null
-                ? 'Нет сообщений'
-                : (last.fromId == repo.currentUser?.id ? 'Вы: ' : '') + last.text;
+                ? tr('no_messages')
+                : (last.fromId == repo.currentUser?.id ? tr('you_prefix') : '') +
+                    last.text;
             final time = last == null
                 ? ''
                 : '${last.createdAt.hour.toString().padLeft(2, '0')}:${last.createdAt.minute.toString().padLeft(2, '0')}';

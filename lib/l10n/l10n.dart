@@ -141,6 +141,96 @@ class L10n extends ChangeNotifier {
       'ru': 'Диалоги появятся здесь после совпадения с брендом или блогером.',
       'en': 'Conversations will appear here after a match.'
     },
+
+    // ── Кампании (форма) ──
+    'campaign_new': {'uz': 'Yangi kampaniya', 'ru': 'Новая кампания', 'en': 'New campaign'},
+    'campaign_edit': {'uz': 'Kampaniyani tahrirlash', 'ru': 'Редактировать кампанию', 'en': 'Edit campaign'},
+    'field_title': {'uz': 'Nomi', 'ru': 'Название', 'en': 'Title'},
+    'field_description': {'uz': 'Tavsif', 'ru': 'Описание', 'en': 'Description'},
+    'field_budget': {'uz': 'Byudjet, ₽', 'ru': 'Бюджет, ₽', 'en': 'Budget, ₽'},
+    'field_category': {'uz': 'Kategoriya', 'ru': 'Категория', 'en': 'Category'},
+    'field_industry': {'uz': 'Soha', 'ru': 'Индустрия', 'en': 'Industry'},
+    'field_niche': {'uz': 'Yo‘nalish', 'ru': 'Ниша', 'en': 'Niche'},
+    'field_platform': {'uz': 'Platforma', 'ru': 'Платформа', 'en': 'Platform'},
+    'field_name_blogger': {'uz': 'Ism / taxallus', 'ru': 'Имя / псевдоним', 'en': 'Name / nickname'},
+    'field_name_brand': {'uz': 'Brend nomi', 'ru': 'Название бренда', 'en': 'Brand name'},
+    'field_followers': {'uz': 'Obunachilar soni', 'ru': 'Число подписчиков', 'en': 'Followers count'},
+    'field_engagement': {'uz': 'Faollik (ER), %', 'ru': 'Вовлечённость (ER), %', 'en': 'Engagement (ER), %'},
+
+    // ── Валидация ──
+    'val_title': {'uz': 'Nomini kiriting', 'ru': 'Введите название', 'en': 'Enter a title'},
+    'val_desc': {'uz': 'Vazifani batafsilroq yozing (10+ belgi)', 'ru': 'Опишите задачу подробнее (от 10 символов)', 'en': 'Describe in more detail (10+ chars)'},
+    'val_budget': {'uz': 'Byudjet summasini kiriting', 'ru': 'Введите сумму бюджета', 'en': 'Enter the budget amount'},
+    'val_email': {'uz': 'Email kiriting', 'ru': 'Введите email', 'en': 'Enter email'},
+    'val_password': {'uz': 'Parolni kiriting', 'ru': 'Введите пароль', 'en': 'Enter password'},
+    'val_pass_min': {'uz': 'Kamida 6 ta belgi', 'ru': 'Минимум 6 символов', 'en': 'At least 6 characters'},
+    'val_pass_match': {'uz': 'Parollar mos emas', 'ru': 'Пароли не совпадают', 'en': 'Passwords don’t match'},
+    'val_name': {'uz': 'Ismni kiriting', 'ru': 'Укажите имя', 'en': 'Enter a name'},
+
+    // ── Статусы / меню ──
+    'status_active': {'uz': 'Faol', 'ru': 'Активна', 'en': 'Active'},
+    'status_pending': {'uz': 'Moderatsiyada', 'ru': 'На модерации', 'en': 'Under review'},
+    'status_closed': {'uz': 'Yopiq', 'ru': 'Закрыта', 'en': 'Closed'},
+    'menu_open': {'uz': 'Ochish', 'ru': 'Открыть', 'en': 'Open'},
+    'menu_edit': {'uz': 'Tahrirlash', 'ru': 'Редактировать', 'en': 'Edit'},
+    'menu_close': {'uz': 'Yopish', 'ru': 'Закрыть', 'en': 'Close'},
+    'menu_activate': {'uz': 'Faollashtirish', 'ru': 'Активировать', 'en': 'Activate'},
+    'block': {'uz': 'Bloklash', 'ru': 'Заблокировать', 'en': 'Block'},
+    'unblock': {'uz': 'Blokdan chiqarish', 'ru': 'Разблокировать', 'en': 'Unblock'},
+    'blocked': {'uz': 'Bloklangan', 'ru': 'Заблокирован', 'en': 'Blocked'},
+    'campaign_one': {'uz': 'Kampaniya', 'ru': 'Кампания', 'en': 'Campaign'},
+
+    // ── Кампании бренда ──
+    'no_campaigns_t': {'uz': 'Hali kampaniyalar yo‘q', 'ru': 'У вас пока нет кампаний', 'en': 'No campaigns yet'},
+    'no_campaigns_s': {'uz': 'Blogerlar javob berishi uchun birinchi kampaniyani yarating.', 'ru': 'Создайте первую кампанию, чтобы блогеры могли откликнуться.', 'en': 'Create your first campaign so bloggers can apply.'},
+    'delete_campaign_q': {'uz': 'Kampaniya o‘chirilsinmi?', 'ru': 'Удалить кампанию?', 'en': 'Delete campaign?'},
+    'delete_user_q': {'uz': 'Foydalanuvchi o‘chirilsinmi?', 'ru': 'Удалить пользователя?', 'en': 'Delete user?'},
+    'deleted': {'uz': 'O‘chirildi', 'ru': 'Удалено', 'en': 'Deleted'},
+    'saved': {'uz': 'Saqlandi', 'ru': 'Сохранено', 'en': 'Saved'},
+    'responses': {'uz': 'Javoblar', 'ru': 'Отклики', 'en': 'Responses'},
+    'favorites': {'uz': 'Saralangan', 'ru': 'Избранное', 'en': 'Favorites'},
+    'no_responses_t': {'uz': 'Hali javoblar yo‘q', 'ru': 'Пока нет откликов', 'en': 'No responses yet'},
+    'interest_brands': {'uz': 'Brendlar qiziqishi', 'ru': 'Интерес брендов', 'en': 'Brand interest'},
+    'my_responses': {'uz': 'Mening javoblarim', 'ru': 'Мои отклики', 'en': 'My responses'},
+
+    // ── Чат ──
+    'chat_start_t': {'uz': 'Suhbatni boshlang', 'ru': 'Начните переписку', 'en': 'Start a conversation'},
+    'chat_start_s': {'uz': 'Hamkorlikni kelishish uchun birinchi xabarni yozing.', 'ru': 'Напишите первое сообщение, чтобы договориться о коллаборации.', 'en': 'Send the first message to arrange a collaboration.'},
+    'you_prefix': {'uz': 'Siz: ', 'ru': 'Вы: ', 'en': 'You: '},
+    'no_messages': {'uz': 'Xabarlar yo‘q', 'ru': 'Нет сообщений', 'en': 'No messages'},
+    'chat': {'uz': 'Chat', 'ru': 'Чат', 'en': 'Chat'},
+
+    // ── Админ ──
+    'total_users': {'uz': 'Jami foydalanuvchilar', 'ru': 'Всего пользователей', 'en': 'Total users'},
+    'metrics': {'uz': 'Ko‘rsatkichlar', 'ru': 'Метрики', 'en': 'Metrics'},
+    'brands': {'uz': 'Brendlar', 'ru': 'Бренды', 'en': 'Brands'},
+    'bloggers': {'uz': 'Blogerlar', 'ru': 'Блогеры', 'en': 'Bloggers'},
+    'active': {'uz': 'Faol', 'ru': 'Активные', 'en': 'Active'},
+    'likes': {'uz': 'Layklar', 'ru': 'Лайки', 'en': 'Likes'},
+    'blocked_count': {'uz': 'Bloklangan', 'ru': 'Заблокировано', 'en': 'Blocked'},
+    'search_user': {'uz': 'Ism yoki email bo‘yicha qidirish', 'ru': 'Поиск по имени или email', 'en': 'Search by name or email'},
+    'no_role': {'uz': 'Rolsiz', 'ru': 'Без роли', 'en': 'No role'},
+    'nobody_found': {'uz': 'Hech kim topilmadi', 'ru': 'Никого не найдено', 'en': 'Nobody found'},
+    'no_campaigns_admin_t': {'uz': 'Kampaniyalar yo‘q', 'ru': 'Кампаний нет', 'en': 'No campaigns'},
+
+    // ── Прочее ──
+    'applied': {'uz': 'Javob berdi', 'ru': 'Откликнулся', 'en': 'Applied'},
+    'interest_sent': {'uz': 'qiziqish yuborildi', 'ru': 'интерес отправлен', 'en': 'interest sent'},
+    'you_applied': {'uz': 'Siz javob berdingiz', 'ru': 'Вы откликнулись', 'en': 'You applied'},
+    'profile_not_found': {'uz': 'Profil topilmadi', 'ru': 'Профиль не найден', 'en': 'Profile not found'},
+    'about_blogger': {'uz': 'Bloger haqida', 'ru': 'О блогере', 'en': 'About the blogger'},
+    'no_bio': {'uz': 'Tavsif to‘ldirilmagan.', 'ru': 'Описание не заполнено.', 'en': 'No description provided.'},
+
+    // ── Пустые ленты / свайп ──
+    'all_viewed_bloggers': {'uz': 'Barcha blogerlarni ko‘rib chiqdingiz', 'ru': 'Вы просмотрели всех блогеров', 'en': 'You’ve viewed all bloggers'},
+    'no_bloggers_niche': {'uz': 'Bu yo‘nalishda bloger yo‘q', 'ru': 'В этой нише блогеров нет', 'en': 'No bloggers in this niche'},
+    'change_filter_matches': {'uz': 'Filtrni o‘zgartiring yoki «Mosliklar»ga kiring.', 'ru': 'Смените фильтр или загляните в «Совпадения».', 'en': 'Change the filter or check “Matches”.'},
+    'no_new_campaigns': {'uz': 'Yangi kampaniyalar yo‘q', 'ru': 'Новых кампаний нет', 'en': 'No new campaigns'},
+    'no_campaigns_cat': {'uz': 'Bu kategoriyada kampaniya yo‘q', 'ru': 'В этой категории кампаний нет', 'en': 'No campaigns in this category'},
+    'change_filter_requests': {'uz': 'Filtrni o‘zgartiring yoki «So‘rovlar»ni tekshiring.', 'ru': 'Смените фильтр или проверьте раздел «Запросы».', 'en': 'Change the filter or check “Requests”.'},
+    'saved_female': {'uz': 'saqlandi', 'ru': 'сохранён(а)', 'en': 'saved'},
+    'you_responded': {'uz': 'siz javob berdingiz', 'ru': 'вы откликнулись на', 'en': 'you applied to'},
+    'nothing_liked': {'uz': 'Hali hech narsa yoqtirilmagan', 'ru': 'Пока ничего не понравилось', 'en': 'Nothing liked yet'},
   };
 }
 

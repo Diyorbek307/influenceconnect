@@ -18,8 +18,8 @@ class BloggerDetailScreen extends StatelessWidget {
     if (blogger == null) {
       return Scaffold(
         appBar: AppBar(),
-        body: const EmptyState(
-            icon: Icons.person_off_rounded, title: 'Профиль не найден'),
+        body: EmptyState(
+            icon: Icons.person_off_rounded, title: tr('profile_not_found')),
       );
     }
 
@@ -115,11 +115,11 @@ class BloggerDetailScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Text('О блогере',
+                  Text(tr('about_blogger'),
                       style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 8),
                   Text(
-                    blogger.bio.isEmpty ? 'Описание не заполнено.' : blogger.bio,
+                    blogger.bio.isEmpty ? tr('no_bio') : blogger.bio,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 28),

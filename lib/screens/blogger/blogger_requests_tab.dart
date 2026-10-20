@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
+import '../../l10n/l10n.dart';
 import '../../models/profile.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/cards.dart';
@@ -32,35 +33,34 @@ class BloggerRequestsTab extends StatelessWidget {
                 isScrollable: true,
                 tabAlignment: TabAlignment.start,
                 tabs: [
-                  Tab(text: 'Мэтчи (${matches.length})'),
-                  Tab(text: 'Интерес брендов (${interested.length})'),
-                  Tab(text: 'Мои отклики (${myApplications.length})'),
+                  Tab(text: '${tr('nav_matches')} (${matches.length})'),
+                  Tab(text: '${tr('interest_brands')} (${interested.length})'),
+                  Tab(text: '${tr('my_responses')} (${myApplications.length})'),
                 ],
               ),
               Expanded(
                 child: TabBarView(
                   children: [
                     matches.isEmpty
-                        ? const EmptyState(
+                        ? EmptyState(
                             icon: Icons.favorite_border_rounded,
-                            title: 'Совпадений пока нет',
-                            subtitle:
-                                'Мэтч появится, когда бренд и вы проявите взаимный интерес.',
+                            title: tr('empty_matches_t'),
+                            subtitle: tr('empty_matches_s'),
                           )
                         : ListView(
                             padding: const EdgeInsets.all(16),
                             children: matches
                                 .map((m) => _brandTile(context, m.brand,
-                                    subtitle: 'Кампания: ${m.campaign.title}',
+                                    subtitle:
+                                        '${tr('campaign_one')}: ${m.campaign.title}',
                                     matched: true))
                                 .toList(),
                           ),
                     interested.isEmpty
-                        ? const EmptyState(
+                        ? EmptyState(
                             icon: Icons.visibility_outlined,
-                            title: 'Пока нет интереса',
-                            subtitle:
-                                'Здесь появятся бренды, которые заинтересовались вами.',
+                            title: tr('no_responses_t'),
+                            subtitle: tr('empty_matches_s'),
                           )
                         : ListView(
                             padding: const EdgeInsets.all(16),
@@ -70,11 +70,10 @@ class BloggerRequestsTab extends StatelessWidget {
                                 .toList(),
                           ),
                     myApplications.isEmpty
-                        ? const EmptyState(
+                        ? EmptyState(
                             icon: Icons.send_outlined,
-                            title: 'Нет откликов',
-                            subtitle:
-                                'Свайпайте кампании вправо, чтобы откликнуться.',
+                            title: tr('no_responses_t'),
+                            subtitle: tr('change_filter_requests'),
                           )
                         : ListView(
                             padding: const EdgeInsets.all(16),
