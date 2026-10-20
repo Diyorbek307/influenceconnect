@@ -102,8 +102,8 @@ class SeedData {
           platform: 'Instagram',
           followers: 385000,
           engagement: 5.2,
-          location: 'Тошкент',
-          bio: 'Go‘zallik blogeri. Kosmetika sharhlari, parvarish, makiyaj darslari.',
+          location: 'Ташкент',
+          bio: 'Бьюти-блогер: обзоры косметики, уход за кожей, уроки макияжа.',
         ),
         _blogger(
           id: 'b_jasur',
@@ -112,8 +112,8 @@ class SeedData {
           platform: 'YouTube',
           followers: 640000,
           engagement: 4.1,
-          location: 'Тошкент',
-          bio: 'Texnika sharhlari: smartfonlar, noutbuklar, gadjetlar oddiy tilda.',
+          location: 'Ташкент',
+          bio: 'Обзоры техники: смартфоны, ноутбуки, гаджеты простым языком.',
         ),
         _blogger(
           id: 'b_aziza',
@@ -123,7 +123,7 @@ class SeedData {
           followers: 274000,
           engagement: 6.8,
           location: 'Самарканд',
-          bio: 'Milliy va zamonaviy taomlar retseptlari. Oson pishiriladigan ovqatlar.',
+          bio: 'Рецепты национальных и современных блюд. Готовим легко.',
         ),
         _blogger(
           id: 'b_bekzod',
@@ -132,8 +132,8 @@ class SeedData {
           platform: 'TikTok',
           followers: 1450000,
           engagement: 10.3,
-          location: 'Тошкент',
-          bio: 'Hajviy sketchlar va vayn. Har kuni kulgi ulashaman.',
+          location: 'Ташкент',
+          bio: 'Юмористические скетчи и вайны. Каждый день — порция смеха.',
         ),
         _blogger(
           id: 'b_madina',
@@ -142,8 +142,8 @@ class SeedData {
           platform: 'Instagram',
           followers: 218000,
           engagement: 5.7,
-          location: 'Тошкент',
-          bio: 'Stilist. Obrazlar, trendlar, kundalik kiyim tanlash.',
+          location: 'Ташкент',
+          bio: 'Стилист: образы, тренды, подбор повседневной одежды.',
         ),
         _blogger(
           id: 'b_sardor',
@@ -153,7 +153,7 @@ class SeedData {
           followers: 330000,
           engagement: 4.9,
           location: 'Бухара',
-          bio: 'O‘zbekiston bo‘ylab sayohat: marshrutlar, joylar, lifehaklar.',
+          bio: 'Путешествия по Узбекистану: маршруты, места, лайфхаки.',
         ),
         _blogger(
           id: 'b_nilufar',
@@ -162,8 +162,8 @@ class SeedData {
           platform: 'Instagram',
           followers: 97000,
           engagement: 7.6,
-          location: 'Тошкент',
-          bio: 'Fitnes murabbiy. Uyda mashqlar, sog‘lom turmush, motivatsiya.',
+          location: 'Ташкент',
+          bio: 'Фитнес-тренер: домашние тренировки, ЗОЖ, мотивация.',
         ),
         _blogger(
           id: 'b_shohruh',
@@ -173,7 +173,7 @@ class SeedData {
           followers: 505000,
           engagement: 6.2,
           location: 'Фергана',
-          bio: 'O‘yin striml va sharhlar, kibersport, gaydlar.',
+          bio: 'Стримы и обзоры игр, киберспорт, гайды.',
         ),
         _blogger(
           id: 'b_kamola',
@@ -183,7 +183,7 @@ class SeedData {
           followers: 142000,
           engagement: 6.5,
           location: 'Наманган',
-          bio: 'Kundalik hayot blogi: turmush, mahsuldorlik, qulaylik.',
+          bio: 'Блог о повседневной жизни: быт, продуктивность, уют.',
         ),
         _blogger(
           id: 'b_otabek',
@@ -192,8 +192,8 @@ class SeedData {
           platform: 'Telegram',
           followers: 88000,
           engagement: 5.4,
-          location: 'Тошкент',
-          bio: 'Shaxsiy moliya, yangi boshlovchilar uchun investitsiyalar.',
+          location: 'Ташкент',
+          bio: 'Личные финансы, инвестиции для начинающих.',
         ),
         _blogger(
           id: 'b_zarina',
@@ -203,7 +203,7 @@ class SeedData {
           followers: 176000,
           engagement: 7.1,
           location: 'Андижан',
-          bio: 'Ikki farzand onasi. Bolalar rivoji, chaqaloq mahsulotlari sharhi.',
+          bio: 'Мама двоих: развитие детей, обзоры товаров для малышей.',
         ),
         _blogger(
           id: 'b_islom',
@@ -212,8 +212,8 @@ class SeedData {
           platform: 'YouTube',
           followers: 410000,
           engagement: 4.6,
-          location: 'Тошкент',
-          bio: 'Avtomobil test-drayvlar, ta’mirlash, avto tanlash bo‘yicha maslahatlar.',
+          location: 'Ташкент',
+          bio: 'Тест-драйвы, ремонт, помощь в подборе авто.',
         ),
         _blogger(
           id: 'b_gulnora',
@@ -222,8 +222,8 @@ class SeedData {
           platform: 'TikTok',
           followers: 263000,
           engagement: 8.2,
-          location: 'Тошкент',
-          bio: 'Ingliz tilini oson o‘rgataman. Lifehaklar, xatolar tahlili.',
+          location: 'Ташкент',
+          bio: 'Учу английскому легко: лайфхаки, разбор ошибок.',
         ),
         _blogger(
           id: 'b_davron',
@@ -233,7 +233,7 @@ class SeedData {
           followers: 59000,
           engagement: 9.1,
           location: 'Хива',
-          bio: 'Musiqachi va prodyuser. Kaverlar, bitlar, studiya ortidagi hayot.',
+          bio: 'Музыкант и продюсер: каверы, биты, жизнь за кулисами студии.',
         ),
 
         // ───────── Бренды ─────────

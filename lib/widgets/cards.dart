@@ -91,7 +91,7 @@ class BloggerSwipeCard extends StatelessWidget {
                         color: Colors.white),
                     InfoChip(
                         icon: Icons.people_alt_rounded,
-                        label: '${blogger.followersLabel} подписчиков',
+                        label: blogger.followersLabel,
                         color: Colors.white),
                     InfoChip(
                         icon: Icons.favorite_rounded,
