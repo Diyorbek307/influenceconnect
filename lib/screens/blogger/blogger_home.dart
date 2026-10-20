@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/app_repository.dart';
 import '../../widgets/common.dart';
+import '../shared/messages_tab.dart';
 import '../shared/profile_tab.dart';
 import 'blogger_campaigns_tab.dart';
 import 'blogger_requests_tab.dart';
@@ -15,7 +16,7 @@ class BloggerHome extends StatefulWidget {
 
 class _BloggerHomeState extends State<BloggerHome> {
   int _index = 0;
-  static const _titles = ['Кампании', 'Запросы', 'Профиль'];
+  static const _titles = ['Кампании', 'Запросы', 'Сообщения', 'Профиль'];
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class _BloggerHomeState extends State<BloggerHome> {
         const pages = [
           BloggerCampaignsTab(),
           BloggerRequestsTab(),
+          MessagesTab(),
           ProfileTab(),
         ];
         return Scaffold(
@@ -42,6 +44,10 @@ class _BloggerHomeState extends State<BloggerHome> {
                   icon: Icon(Icons.favorite_outline),
                   selectedIcon: Icon(Icons.favorite),
                   label: 'Запросы'),
+              NavigationDestination(
+                  icon: Icon(Icons.chat_bubble_outline),
+                  selectedIcon: Icon(Icons.chat_bubble),
+                  label: 'Чаты'),
               NavigationDestination(
                   icon: Icon(Icons.person_outline),
                   selectedIcon: Icon(Icons.person),

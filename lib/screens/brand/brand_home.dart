@@ -5,6 +5,7 @@ import '../../widgets/common.dart';
 import 'brand_discover_tab.dart';
 import 'brand_campaigns_tab.dart';
 import 'brand_matches_tab.dart';
+import '../shared/messages_tab.dart';
 import '../shared/profile_tab.dart';
 
 /// Главная оболочка бренда с нижней навигацией.
@@ -18,7 +19,13 @@ class BrandHome extends StatefulWidget {
 class _BrandHomeState extends State<BrandHome> {
   int _index = 0;
 
-  static const _titles = ['Поиск блогеров', 'Мои кампании', 'Совпадения', 'Профиль'];
+  static const _titles = [
+    'Поиск блогеров',
+    'Мои кампании',
+    'Совпадения',
+    'Сообщения',
+    'Профиль'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +36,7 @@ class _BrandHomeState extends State<BrandHome> {
           BrandDiscoverTab(),
           BrandCampaignsTab(),
           BrandMatchesTab(),
+          MessagesTab(),
           ProfileTab(),
         ];
         return Scaffold(
@@ -50,6 +58,10 @@ class _BrandHomeState extends State<BrandHome> {
                   icon: Icon(Icons.favorite_outline),
                   selectedIcon: Icon(Icons.favorite),
                   label: 'Совпадения'),
+              NavigationDestination(
+                  icon: Icon(Icons.chat_bubble_outline),
+                  selectedIcon: Icon(Icons.chat_bubble),
+                  label: 'Чаты'),
               NavigationDestination(
                   icon: Icon(Icons.person_outline),
                   selectedIcon: Icon(Icons.person),
